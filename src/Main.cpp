@@ -70,12 +70,14 @@ void loop() {
     case PRENDRE_LE_SHORTCUT: { /* Mettre la fonction de sa partie ici */ break; }
     case TRAVERSER_JUMP_APRES_SHORTCUT: { /* Mettre la fonction de sa partie ici */ break; }
     case ARRIVE: { g_fini = true; break; }
-    default: { g_erreur = true; break; }
+    default: { g_erreur = true; break; } // Etat invalide, on indique qu'il y a une erreur
   }
 
   // Si le robot a fini la course, on quitte le programme
-  if (g_fini)
+  if (g_fini) {
+    beep(1, 1000); // Signal d'arrivee
     exit(EXIT_SUCCESS); // Quitte le programme
+  }
 
   // Si une erreur est detectee, le robot beep et on quitte le programme
   if (g_erreur) {
