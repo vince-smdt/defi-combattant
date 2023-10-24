@@ -69,10 +69,14 @@ void loop() {
   }
 
   // Si le robot a fini la course, on quitte le programme
-  if (g_fini) exit(EXIT_SUCCESS);
+  if (g_fini)
+    exit(EXIT_SUCCESS); // Quitte le programme
 
   // Si une erreur est detectee, le robot beep et on quitte le programme
-  if (g_erreur) exit(EXIT_FAILURE);
+  if (g_erreur) {
+    beep(5, 100); // Signal d'erreur
+    exit(EXIT_FAILURE); // Quitte le programme
+  }
 
   // Le robot passe a son prochain etat
   g_etat++;
