@@ -1,4 +1,12 @@
+#ifndef GENERAL_H
+#define GENERAL_H
+
+/****************************************/
+/**** INCLUDES ****/
+/****************************************/
+
 #include <LibRobus.h>
+
 
 /****************************************/
 /**** FONCTIONS (DECLARATIONS) ****/
@@ -20,3 +28,5 @@ void beep(int count, int ms){
     delay(ms);
   }
 }
+
+#endif // General.h
