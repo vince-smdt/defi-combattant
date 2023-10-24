@@ -29,4 +29,4 @@ void beep(int count, int ms){
   }
 }
 
-#endif // General.h
+#endif // GENERAL_H
