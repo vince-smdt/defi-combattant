@@ -53,7 +53,7 @@ void position_robot() {
   }
   g_position = appuis;
 
-  beep(g_position, 50);
+  beep(g_position, 75);
 }
 
 #endif // DEPART_H

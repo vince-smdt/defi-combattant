@@ -15,5 +15,7 @@ uint8_t g_etat = DEPART; // Etat actuel du robot, est un int et non un type "Eta
 bool g_erreur = false; // Indique si une erreur a eu lieu dans le programme
 bool g_fini = false; // Indique si le robot a fini la course
 uint8_t g_position = 0; // La position du robot, determine par le nombre d'appuis sur le bumper arriere
+float g_correctionG = 1.0; // Coefficient de correction moteur gauche
+float g_correctionD = 1.0; // Coefficient de correction moteur droit
 
 #endif // GLOBALES_H

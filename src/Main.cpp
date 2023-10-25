@@ -3,6 +3,7 @@
 #include "Types.h"
 #include "General.h"
 #include "Depart.h"
+#include "Raccourci.h"
 
 /****************************************/
 /**** SETUP & LOOP ****/
@@ -29,7 +30,7 @@ void loop() {
     case SUIVRE_LIGNE_SHORTCUT: { /* Mettre la fonction de sa partie ici */ break; }
     case PARTIE_GRISE_SHORTCUT: { /* Mettre la fonction de sa partie ici */ break; }
     case ALLER_AU_SHORTCUT: { /* Mettre la fonction de sa partie ici */ break; }
-    case PRENDRE_LE_SHORTCUT: { /* Mettre la fonction de sa partie ici */ break; }
+    case PRENDRE_LE_SHORTCUT: { raccourci(); break; }
     case TRAVERSER_JUMP_APRES_SHORTCUT: { /* Mettre la fonction de sa partie ici */ break; }
     case ARRIVE: { g_fini = true; break; }
     default: { g_erreur = true; break; } // Etat invalide, on indique qu'il y a une erreur

@@ -9,6 +9,6 @@
 /**** CONSTANTES ****/
 /****************************************/
 
-const uint16_t DELAI_BOUCLE = 100; // Delai de temps attendu a chaque iteration de boucle
+const uint16_t DELAI_AVANCER = 50; // Delai de temps attendu a chaque iteration de boucle
 
 #endif // CONSTANTES_H
