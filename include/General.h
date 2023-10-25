@@ -8,6 +8,8 @@
 /****************************************/
 
 void beep(int count, int ms);
+void MOTOR_SetSpeedAll(float speedLeft, float speedRight);
+void arret();
 
 
 /****************************************/
@@ -22,6 +24,17 @@ void beep(int count, int ms){
     AX_BuzzerOFF();
     delay(ms);
   }
+}
+
+// Permet de specifier la vitesse du moteur droit et gauche en un seul appel de fonction
+void MOTOR_SetSpeedAll(float speedLeft, float speedRight) {
+  MOTOR_SetSpeed(LEFT, speedLeft);
+  MOTOR_SetSpeed(RIGHT, speedRight);
+}
+
+// Fait arreter le robot
+void arret() {
+  MOTOR_SetSpeedAll(0, 0);
 }
 
 #endif // GENERAL_H
