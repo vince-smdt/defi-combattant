@@ -9,10 +9,11 @@
 /****************************************/
 
 void beep(int count, int ms);
-void MOTOR_SetSpeedAll(float vitesseG, float vitesseD);
 void arret();
 void avancer(float vitesseG, float vitesseD);
 void correction(float vitesseG, float vitesseD, uint32_t distG, uint32_t distD);
+void avancerDuree(float vitesseG, float vitesseD, uint32_t duree);
+void accelerer(float vitesseDebut, float vitesseFin, uint32_t duree);
 
 
 /****************************************/
@@ -29,15 +30,10 @@ void beep(int count, int ms){
   }
 }
 
-// Permet de specifier la vitesse du moteur droit et gauche en un seul appel de fonction
-void MOTOR_SetSpeedAll(float vitesseG, float vitesseD) {
-  MOTOR_SetSpeed(LEFT, vitesseG);
-  MOTOR_SetSpeed(RIGHT, vitesseD);
-}
-
 // Fait arreter le robot
 void arret() {
-  MOTOR_SetSpeedAll(0, 0);
+  MOTOR_SetSpeed(LEFT, 0);
+  MOTOR_SetSpeed(RIGHT, 0);
 }
 
 // Fait avancer le robot avec l'ajustement PID et ajuste les coefficients de correction
@@ -59,6 +55,26 @@ void correction(float vitesseG, float vitesseD, uint32_t distG, uint32_t distD) 
 
   g_correctionG -= 1 - (RAPPORT_MOY / RAPPORT_G);
   g_correctionD -= 1 - (RAPPORT_MOY / RAPPORT_D);
+}
+
+// Avance pendant une duree de temps fixe
+void avancerDuree(float vitesseG, float vitesseD, uint32_t duree) {
+  uint32_t debut = millis();
+  while (millis() - debut < duree)
+    avancer(vitesseG, vitesseD);
+}
+
+// Fait graduellement augmenter la vitesse du robot
+// NOTE: Il est possible de ralentir avec cette fonction en mettant une vitesse de debut plus grande que celle de fin
+void accelerer(float vitesseDebut, float vitesseFin, uint32_t duree) {
+  const int NB_INCR = duree / DELAI_AVANCER; // Nb de fois qu'on modifie la vitesse
+  const float INCR_VITESSE = (vitesseFin - vitesseDebut) / NB_INCR; // Increment de vitesse par iteration de boucle
+
+  for (int i = 0; i < NB_INCR - 1; i++) {
+    const float VITESSE = INCR_VITESSE * i + vitesseDebut;
+    avancer(VITESSE, VITESSE);
+  }
+  avancer(vitesseFin, vitesseFin);
 }
 
 #endif // GENERAL_H

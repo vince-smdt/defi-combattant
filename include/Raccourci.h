@@ -27,33 +27,17 @@ void raccourci();
 
 // Fait passer le robot par le raccourci et retourne ensuite sur la piste
 void raccourci() {
-
-  for (int j = 0; j < 2; j++) {
-    for (int i = 0; i < 20; i++) {
-      avancer(0.35, 0.35);
-    }
-    arret();
-    delay(1000);
-  }
-  Serial.print(dg);
-  Serial.print(", ");
-  Serial.print(dd);
-  return;
-
   // On longe le mur de droit jusqu'a ce qu'on soit proche de la sortie
-  while (ROBUS_ReadIR(FRONT) >= DIST_MUR_AVANT_RACCOURCI) {
+  while (ROBUS_ReadIR(FRONT) >= DIST_MUR_AVANT_RACCOURCI)
     if (ROBUS_ReadIR(RIGHT) >= DIST_MUR_DROIT_RACCOURCI)
       // Si on s'eloigne du mur de droit, on veut se rapprocher
-      MOTOR_SetSpeedAll(0.55, 0.45);
+      avancer(0.55, 0.45);
     else
       // Si on est trop pres, on s'eloigne
-      MOTOR_SetSpeedAll(0.45, 0.55);
-    delay(DELAI_AVANCER);
-  }
+      avancer(0.45, 0.55);
 
   // On avance en courbe pour retourner sur la piste
-  MOTOR_SetSpeedAll(0.75, 0.5);
-  delay(500);
+  avancerDuree(0.75, 0.5, 500);
 
   // On arrete les moteurs
   arret();

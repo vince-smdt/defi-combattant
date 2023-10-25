@@ -40,16 +40,16 @@ void position_robot() {
   while (!ROBUS_IsBumper(REAR)); // Attend que le bumper arriere soit appuye
 
   uint8_t appuis = 1;
-  uint16_t begin = millis();
-  uint16_t now = begin;
+  uint16_t debut = millis();
+  uint16_t maintenant = debut;
 
   // Detecte le nombre de fois que le bumper se fait appuyer
-  while (now - begin < TEMPS_MAX_BUMPER_ARRIERE && appuis < MAX_APPUIES) {
-    if (ROBUS_IsBumper(REAR) && now - begin > TEMPS_MIN_BUMPER_ARRIERE) {
+  while (maintenant - debut < TEMPS_MAX_BUMPER_ARRIERE && appuis < MAX_APPUIES) {
+    if (ROBUS_IsBumper(REAR) && maintenant - debut > TEMPS_MIN_BUMPER_ARRIERE) {
       appuis++;
-      begin = millis();
+      debut = millis();
     }
-    now = millis();
+    maintenant = millis();
   }
   g_position = appuis;
 
