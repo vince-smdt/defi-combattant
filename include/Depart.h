@@ -9,8 +9,8 @@
 /**** CONSTANTES ****/
 /****************************************/
 
-const uint16_t TEMPS_MIN_BUMPER_ARR = 500; // Temps min avant qu'on puisse rappuyer sur le bumper arriere (en ms)
-const uint16_t TEMPS_MAX_BUMPER_ARR = 1500; // Temps max pour rappuyer sur le bumper arriere (en ms)
+const uint16_t TEMPS_MIN_BUMPER_ARRIERE = 500; // Temps min avant qu'on puisse rappuyer sur le bumper arriere (en ms)
+const uint16_t TEMPS_MAX_BUMPER_ARRIERE = 1500; // Temps max pour rappuyer sur le bumper arriere (en ms)
 const uint8_t MAX_APPUIES = 8; // Nb max de fois qu'on peut appuyer sur le bumper
 
 
@@ -31,21 +31,21 @@ void position_robot();
 // Attend le signal de depart
 void depart() {
   position_robot();
-  // TODO - Detecter la couleur
-  // TODO - Attendre le sifflet
+  // TODO - Fonction pour attendre le sifflet
+  // TODO - Fonction pour detecter la couleur
 }
 
-// Determine la position du robot en fonction du nombre d'appuis sur le bumper arriere
+// Determine la position de depart du robot en fonction du nombre d'appuis sur le bumper arriere
 void position_robot() {
   while (!ROBUS_IsBumper(REAR)); // Attend que le bumper arriere soit appuye
 
   uint8_t appuis = 1;
-  uint32_t begin = millis();
-  uint32_t now = begin;
+  uint16_t begin = millis();
+  uint16_t now = begin;
 
   // Detecte le nombre de fois que le bumper se fait appuyer
-  while (now - begin < TEMPS_MAX_BUMPER_ARR && appuis < MAX_APPUIES) {
-    if (ROBUS_IsBumper(REAR) && now - begin > TEMPS_MIN_BUMPER_ARR) {
+  while (now - begin < TEMPS_MAX_BUMPER_ARRIERE && appuis < MAX_APPUIES) {
+    if (ROBUS_IsBumper(REAR) && now - begin > TEMPS_MIN_BUMPER_ARRIERE) {
       appuis++;
       begin = millis();
     }

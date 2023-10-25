@@ -1,4 +1,6 @@
 #include <LibRobus.h>
+#include "Globales.h"
+#include "Types.h"
 #include "General.h"
 #include "Depart.h"
 
