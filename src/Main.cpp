@@ -1,46 +1,6 @@
-/****************************************/
-/**** INCLUDES ****/
-/****************************************/
-
 #include <LibRobus.h>
 #include "General.h"
-
-
-/****************************************/
-/**** ENUMS ****/
-/****************************************/
-
-// Les etats possibles que le robot peut avoir, sont obligatoirement sequentiels (un apres l'autre)
-// N'oubliez pas de modifier les nombres si vous ajoutez des etats
-enum Etat {
-  DEPART = 0,
-  SUIVRE_LIGNE = 1,
-  PARTIE_GRISE = 2,
-  SUIVRE_LIGNE_JUSQUA_POUTRE = 3,
-  FAIRE_TOMBER_VERRE = 4,
-  SUIVRE_LIGNE_JUSQUA_PARTIE_BLANCHE = 5,
-  METTRE_VERRE_SUR_BALLE = 6,
-  RETOURNER_SUR_PARCOURS = 7,
-  TRAVERSER_JUMP = 8,
-  SUIVRE_LIGNE_SHORTCUT = 9,
-  PARTIE_GRISE_SHORTCUT = 10,
-  ALLER_AU_SHORTCUT = 11,
-  PRENDRE_LE_SHORTCUT = 12,
-  TRAVERSER_JUMP_APRES_SHORTCUT = 13,
-  ARRIVE = 14
-};
-
-
-/****************************************/
-/**** VARIABLES GLOBALES ****/
-/****************************************/
-
-// !!! Le prefixe "g_" indique une variable globale, ajoutez le si vous declarez d'autres variables globales !!!
-
-int g_etat = DEPART; // Etat actuel du robot, est un int et non un type "Etat" pour qu'on puisse l'incrementer avec l'operateur ++
-bool g_erreur = false; // Indique si une erreur a eu lieu dans le programme
-bool g_fini = false; // Indique si le robot a fini la course
-
+#include "Depart.h"
 
 /****************************************/
 /**** SETUP & LOOP ****/
@@ -55,7 +15,7 @@ void setup() {
 void loop() {
   // Ce switch va determiner ce que le robot doit faire dependemment de son etat actuel
   switch (g_etat) {
-    case DEPART: { /* Mettre la fonction de sa partie ici */ break; }
+    case DEPART: { depart(); break; }
     case SUIVRE_LIGNE: { /* Mettre la fonction de sa partie ici */ break; }
     case PARTIE_GRISE: { /* Mettre la fonction de sa partie ici */ break; }
     case SUIVRE_LIGNE_JUSQUA_POUTRE: { /* Mettre la fonction de sa partie ici */ break; }
