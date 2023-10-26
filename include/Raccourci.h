@@ -28,7 +28,7 @@ void raccourci();
 // Fait passer le robot par le raccourci et retourne ensuite sur la piste
 void raccourci() {
   // On longe le mur de droit jusqu'a ce qu'on soit proche de la sortie
-  while (ROBUS_ReadIR(FRONT) >= DIST_MUR_AVANT_RACCOURCI)
+  while (ROBUS_ReadIR(LEFT) >= DIST_MUR_AVANT_RACCOURCI)
     if (ROBUS_ReadIR(RIGHT) >= DIST_MUR_DROIT_RACCOURCI)
       // Si on s'eloigne du mur de droit, on veut se rapprocher
       avancer(0.55, 0.45);

@@ -15,6 +15,8 @@ void correction(float vitesseG, float vitesseD, int32_t pulsesG, int32_t pulsesD
 void avancerDuree(float vitesseG, float vitesseD, uint32_t ms);
 void accelerer(float vitesseDebut, float vitesseFin, uint32_t ms);
 
+float IR_to_cm(uint8_t id);
+
 
 /****************************************/
 /**** FONCTIONS (DEFINITIONS) ****/
@@ -75,6 +77,12 @@ void accelerer(float vitesseDebut, float vitesseFin, uint32_t ms) {
     avancer(VITESSE, VITESSE);
   }
   avancer(vitesseFin, vitesseFin);
+}
+
+// Converti la valeur analogue d'un capteur infrarouge en cm
+// Le param "id" represente IR0 a IR3 (0-3)
+float IR_to_cm(uint8_t id) {
+  return constrain(5500.0/ROBUS_ReadIR(id), IR_DIST_MIN, IR_DIST_MAX);
 }
 
 #endif // GENERAL_H
