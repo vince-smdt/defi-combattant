@@ -11,7 +11,7 @@
 void beep(int count, int ms);
 void arret();
 void avancer(float vitesseG, float vitesseD);
-void correction(float vitesseG, float vitesseD, uint32_t pulsesG, uint32_t pulsesD);
+void correction(float vitesseG, float vitesseD, int32_t pulsesG, int32_t pulsesD);
 void avancerDuree(float vitesseG, float vitesseD, uint32_t ms);
 void accelerer(float vitesseDebut, float vitesseFin, uint32_t ms);
 
@@ -45,7 +45,7 @@ void avancer(float vitesseG, float vitesseD) {
 }
 
 // Fait le calcul des coefficients de correction, les pulses representent la dist parcourue depuis la derniere mesure
-void correction(float vitesseG, float vitesseD, uint32_t pulsesG, uint32_t pulsesD) {
+void correction(float vitesseG, float vitesseD, int32_t pulsesG, int32_t pulsesD) {
   pulsesG = abs(pulsesG);
   pulsesD = abs(pulsesD);
 
