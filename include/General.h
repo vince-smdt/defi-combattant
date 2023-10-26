@@ -11,9 +11,9 @@
 void beep(int count, int ms);
 void arret();
 void avancer(float vitesseG, float vitesseD);
-void correction(float vitesseG, float vitesseD, uint32_t distG, uint32_t distD);
-void avancerDuree(float vitesseG, float vitesseD, uint32_t duree);
-void accelerer(float vitesseDebut, float vitesseFin, uint32_t duree);
+void correction(float vitesseG, float vitesseD, uint32_t pulsesG, uint32_t pulsesD);
+void avancerDuree(float vitesseG, float vitesseD, uint32_t ms);
+void accelerer(float vitesseDebut, float vitesseFin, uint32_t ms);
 
 
 /****************************************/
@@ -44,13 +44,13 @@ void avancer(float vitesseG, float vitesseD) {
   correction(vitesseG, vitesseD, ENCODER_ReadReset(LEFT), ENCODER_ReadReset(RIGHT));
 }
 
-// Fait le calcul des coefficients de correction
-void correction(float vitesseG, float vitesseD, uint32_t distG, uint32_t distD) {
-  distG = abs(distG);
-  distD = abs(distD);
+// Fait le calcul des coefficients de correction, les pulses representent la dist parcourue depuis la derniere mesure
+void correction(float vitesseG, float vitesseD, uint32_t pulsesG, uint32_t pulsesD) {
+  pulsesG = abs(pulsesG);
+  pulsesD = abs(pulsesD);
 
-  const float RAPPORT_G = distG / vitesseG;
-  const float RAPPORT_D = distD / vitesseD;
+  const float RAPPORT_G = pulsesG / vitesseG;
+  const float RAPPORT_D = pulsesD / vitesseD;
   const float RAPPORT_MOY = (RAPPORT_G + RAPPORT_D) / 2;
 
   g_correctionG -= 1 - (RAPPORT_MOY / RAPPORT_G);
@@ -58,16 +58,16 @@ void correction(float vitesseG, float vitesseD, uint32_t distG, uint32_t distD) 
 }
 
 // Avance pendant une duree de temps fixe
-void avancerDuree(float vitesseG, float vitesseD, uint32_t duree) {
+void avancerDuree(float vitesseG, float vitesseD, uint32_t ms) {
   uint32_t debut = millis();
-  while (millis() - debut < duree)
+  while (millis() - debut < ms)
     avancer(vitesseG, vitesseD);
 }
 
 // Fait graduellement augmenter la vitesse du robot
 // NOTE: Il est possible de ralentir avec cette fonction en mettant une vitesse de debut plus grande que celle de fin
-void accelerer(float vitesseDebut, float vitesseFin, uint32_t duree) {
-  const int NB_INCR = duree / DELAI_AVANCER; // Nb de fois qu'on modifie la vitesse
+void accelerer(float vitesseDebut, float vitesseFin, uint32_t ms) {
+  const int NB_INCR = ms / DELAI_AVANCER; // Nb de fois qu'on modifie la vitesse
   const float INCR_VITESSE = (vitesseFin - vitesseDebut) / NB_INCR; // Increment de vitesse par iteration de boucle
 
   for (int i = 0; i < NB_INCR - 1; i++) {

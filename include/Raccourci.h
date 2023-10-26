@@ -38,9 +38,6 @@ void raccourci() {
 
   // On avance en courbe pour retourner sur la piste
   avancerDuree(0.75, 0.5, 500);
-
-  // On arrete les moteurs
-  arret();
 }
 
 #endif // RACCOURCI_H
