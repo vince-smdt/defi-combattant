@@ -18,4 +18,6 @@ uint8_t IR_DROIT = 2;
 uint8_t IR_DIST_MIN = 10;
 uint8_t IR_DIST_MAX = 80;
 
+uint8_t SERVO_TOMBER_VERRE = 0;
+
 #endif // CONSTANTES_H
