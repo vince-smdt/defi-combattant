@@ -28,16 +28,17 @@ void raccourci();
 // Fait passer le robot par le raccourci et retourne ensuite sur la piste
 void raccourci() {
   // On longe le mur de droit jusqu'a ce qu'on soit proche de la sortie
-  while (ROBUS_ReadIR(LEFT) >= DIST_MUR_AVANT_RACCOURCI)
-    if (ROBUS_ReadIR(RIGHT) >= DIST_MUR_DROIT_RACCOURCI)
+  while (true /* Tant que le detecteur de couleur ne voit pas du vert (sortie du shortcut) */) {
+    float dist = IR_to_cm(IR_DROIT);
+    if (dist >= DIST_MUR_DROIT_RACCOURCI)
       // Si on s'eloigne du mur de droit, on veut se rapprocher
-      avancer(0.55, 0.45);
+      avancer(dist > DIST_MUR_DROIT_RACCOURCI + 5 ? 0.3 : 0.25, 0.20);
     else
       // Si on est trop pres, on s'eloigne
-      avancer(0.45, 0.55);
+      avancer(0.20, 0.25);
+  }
 
-  // On avance en courbe pour retourner sur la piste
-  avancerDuree(0.75, 0.5, 500);
+  arret();
 }
 
 #endif // RACCOURCI_H
