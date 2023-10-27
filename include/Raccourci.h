@@ -11,7 +11,9 @@
 /****************************************/
 
 uint8_t DIST_MUR_DROIT_RACCOURCI = 15; // Distance que le robot garde on mur droit quand il prend le raccourci (en cm)
-uint8_t DIST_MUR_AVANT_RACCOURCI = 15; // Distance du mur avant que le robot doit atteindre avant de faire la courbe pour sortir du raccourci (en cm)
+float VITESSE_INF = 0.2; // Vitesse moins rapide pour l'ajustement via le mur
+float VITESSE_SUP = 0.25; // Vitesse plus rapide pour l'ajustement via le mur
+float VITESSE_MAX_G = 0.45; // Vitesse proportionnelle maximum que la roue de gauche peut avoir
 
 
 /****************************************/
@@ -30,12 +32,14 @@ void raccourci() {
   // On longe le mur de droit jusqu'a ce qu'on soit proche de la sortie
   while (true /* Tant que le detecteur de couleur ne voit pas du vert (sortie du shortcut) */) {
     float dist = IR_to_cm(IR_DROIT);
-    if (dist >= DIST_MUR_DROIT_RACCOURCI)
+    if (dist >= DIST_MUR_DROIT_RACCOURCI) {
       // Si on s'eloigne du mur de droit, on veut se rapprocher
-      avancer(dist > DIST_MUR_DROIT_RACCOURCI + 5 ? 0.3 : 0.25, 0.20);
-    else
+      float ajustementG = (VITESSE_MAX_G - VITESSE_SUP)/(IR_DIST_MAX - IR_DIST_MIN)*(dist - DIST_MUR_DROIT_RACCOURCI);
+      float vitesseG = VITESSE_SUP + min(VITESSE_MAX_G, ajustementG);
+      avancer(vitesseG, VITESSE_INF);
+    } else
       // Si on est trop pres, on s'eloigne
-      avancer(0.20, 0.25);
+      avancer(VITESSE_INF, VITESSE_SUP);
   }
 
   arret();
