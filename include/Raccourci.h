@@ -29,6 +29,22 @@ void raccourci();
 
 // Fait passer le robot par le raccourci et retourne ensuite sur la piste
 void raccourci() {
+  // On longe le mur pendant tout le tour
+  // const float DISTANCE_RAPPROCHER = 15.0; // Le robot se rapproche du mur s'il s'eloigne plus loin que cette distance du mur en cm
+  // const float DISTANCE_ELOIGNER = 12.0; // Le robot s'eloigne du mur s'il est plus proche du mur que cette distance du mur en cm
+  // const float VITESSE_RACCOURCI = 0.2; // Vitesse des roues du robot pendant qu'il fait le tour pour le raccourci
+
+  // while (true) {
+  //   float dist = IR_to_cm(IR_DROIT);
+
+  //   if (dist > DISTANCE_RAPPROCHER)
+  //     avancer(VITESSE_RACCOURCI, 0);
+  //   else if (dist < DISTANCE_ELOIGNER)
+  //     avancer(0, VITESSE_RACCOURCI);
+  //   else
+  //     avancer(VITESSE_RACCOURCI, VITESSE_RACCOURCI);
+  // }
+
   // On longe le mur de droit jusqu'a ce qu'on soit proche de la sortie
   while (true /* Tant que le detecteur de couleur ne voit pas du vert (sortie du shortcut) */) {
     float dist = IR_to_cm(IR_DROIT);
