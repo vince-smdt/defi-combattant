@@ -4,38 +4,32 @@
 #include "General.h"
 
 
+void RetourEtatIniaial(){
+  SERVO_SetAngle(0, 90);
+  delay(500);
+}
+
+
 void FairTomberLeVerre(){
 
   SERVO_Enable(1);
-  int position;
+  RetourEtatIniaial();
   while(IR_to_cm(IR_GAUCHE)> 15 || IR_to_cm(IR_DROIT) > 15){
-    Serial.println(IR_to_cm(IR_GAUCHE));
-  if (IR_to_cm(IR_GAUCHE)< 15){
-    for (position = 90; position <= 180; position += 1){
-    SERVO_SetAngle(1, position);
-    delay(1);
+    Serial.println(IR_to_cm(IR_DROIT));
+    if (IR_to_cm(IR_GAUCHE)< 15){
+      Serial.println("gauche");
+      SERVO_SetAngle(0, 0);
+      delay(3000);
+      RetourEtatIniaial();
     }
-    delay(3000);
-    for (position = 180; position >= 90; position -= 1){
-      SERVO_SetAngle(1, position);
-      delay(1);
+    if (IR_to_cm(IR_DROIT)< 15){
+      Serial.println("droit");
+      SERVO_SetAngle(0, 180);
+      delay(3000);
+      RetourEtatIniaial();
     }
-    
-  }
-  if (IR_to_cm(IR_DROIT)< 15){
-    for (position = 90; position >= 0; position -= 1){
-      SERVO_SetAngle(1, position);
-      delay(1);
-    }
-    delay(3000);
-    for (position = 0; position <= 90; position += 1){
-      SERVO_SetAngle(1, position);
-      delay(1);
-    }
-  }
+ }
 }
-}
-
 
 
 
