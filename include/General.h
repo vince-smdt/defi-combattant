@@ -14,8 +14,11 @@ void avancer(float vitesseG, float vitesseD);
 void correction(float vitesseG, float vitesseD, int32_t pulsesG, int32_t pulsesD);
 void avancerDuree(float vitesseG, float vitesseD, uint32_t ms);
 void accelerer(float vitesseDebut, float vitesseFin, uint32_t ms);
+void suivreCouleur();
 
 float IR_to_cm(uint8_t id);
+
+uint8_t detecterCouleur();
 
 
 /****************************************/
@@ -87,10 +90,30 @@ void accelerer(float vitesseDebut, float vitesseFin, uint32_t ms) {
   avancer(vitesseFin, vitesseFin);
 }
 
+// Suit la couleur mise en parametre
+void suivreCouleur() {
+  uint8_t couleur = senseur_couleur();
+
+  if (couleur <= g_couleur)
+    // On est sur la bonne voie
+    avancer(VITESSE_BASE, VITESSE_BASE);
+  else
+    // On est trop a gauche, on reajuste
+    avancer(VITESSE_TOURNER, VITESSE_BASE);
+}
+
 // Converti la valeur analogue d'un capteur infrarouge en cm
 // Le param "id" represente IR0 a IR3 (0-3)
 float IR_to_cm(uint8_t id) {
   return constrain(5500.0/ROBUS_ReadIR(id), IR_DIST_MIN, IR_DIST_MAX);
+}
+
+// Retourne la couleur detectee par le senseur de couleur
+uint8_t senseur_couleur() {
+  /*
+  * FONCTION A COMPLETER (PARTIE A GAB)
+  */
+  return BLEU;
 }
 
 #endif // GENERAL_H

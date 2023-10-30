@@ -20,9 +20,6 @@ void loop() {
   // Ce switch va determiner ce que le robot doit faire dependemment de son etat actuel
   switch (g_etat) {
     case DEPART: { depart(); break; }
-    case SUIVRE_LIGNE: { /* Mettre la fonction de sa partie ici */ break; }
-    case PARTIE_GRISE: { /* Mettre la fonction de sa partie ici */ break; }
-    case SUIVRE_LIGNE_JUSQUA_POUTRE: { /* Mettre la fonction de sa partie ici */ break; }
     case FAIRE_TOMBER_VERRE: { verre(); break; }
     case SUIVRE_LIGNE_JUSQUA_PARTIE_BLANCHE: { /* Mettre la fonction de sa partie ici */ break; }
     case METTRE_VERRE_SUR_BALLE: { /* Mettre la fonction de sa partie ici */ break; }

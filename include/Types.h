@@ -11,16 +11,22 @@
 // N'oubliez pas de modifier les nombres si vous ajoutez des etats
 enum Etat {
   DEPART = 0,
-  SUIVRE_LIGNE = 1,
-  PARTIE_GRISE = 2,
-  SUIVRE_LIGNE_JUSQUA_POUTRE = 3,
-  FAIRE_TOMBER_VERRE = 4,
-  SUIVRE_LIGNE_JUSQUA_PARTIE_BLANCHE = 5,
-  METTRE_VERRE_SUR_BALLE = 6,
-  RETOURNER_SUR_PARCOURS = 7,
-  TRAVERSER_JUMP = 8,
-  TOUR_AVEC_RACCOURCI = 9,
-  ARRIVE = 10
+  FAIRE_TOMBER_VERRE = 1,
+  SUIVRE_LIGNE_JUSQUA_PARTIE_BLANCHE = 2,
+  METTRE_VERRE_SUR_BALLE = 3,
+  RETOURNER_SUR_PARCOURS = 4,
+  TRAVERSER_JUMP = 5,
+  TOUR_AVEC_RACCOURCI = 6,
+  ARRIVE = 7
+};
+
+// Les couleurs de la piste
+enum Couleur {
+  AUCUNE = 0,
+  BLEU = 1,
+  VERT = 2,
+  JAUNE = 3,
+  ROUGE = 4
 };
 
 #endif // TYPES_H
