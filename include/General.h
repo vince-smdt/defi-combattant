@@ -48,6 +48,9 @@ void avancer(float vitesseG, float vitesseD) {
 
 // Fait le calcul des coefficients de correction, les pulses representent la dist parcourue depuis la derniere mesure
 void correction(float vitesseG, float vitesseD, int32_t pulsesG, int32_t pulsesD) {
+  if (vitesseG == 0 || vitesseD == 0 || pulsesG == 0 || pulsesD == 0)
+    return;
+
   pulsesG = abs(pulsesG);
   pulsesD = abs(pulsesD);
 
@@ -55,8 +58,13 @@ void correction(float vitesseG, float vitesseD, int32_t pulsesG, int32_t pulsesD
   const float RAPPORT_D = pulsesD / vitesseD;
   const float RAPPORT_MOY = (RAPPORT_G + RAPPORT_D) / 2;
 
+  // On modifie le coefficient de correction
   g_correctionG -= 1 - (RAPPORT_MOY / RAPPORT_G);
   g_correctionD -= 1 - (RAPPORT_MOY / RAPPORT_D);
+
+  // On s'assure que le coefficient depasse pas les limites
+  g_correctionG = constrain(g_correctionG, CORRECTION_MIN, CORRECTION_MAX);
+  g_correctionD = constrain(g_correctionD, CORRECTION_MIN, CORRECTION_MAX);
 }
 
 // Avance pendant une duree de temps fixe

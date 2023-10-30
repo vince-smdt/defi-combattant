@@ -12,6 +12,8 @@
 const uint16_t DELAI_AVANCER = 50; // Delai de temps attendu a chaque iteration de boucle
 const float VITESSE_MIN = 0.15;
 const float VITESSE_MAX = 1.0;
+const float CORRECTION_MIN = 0.9;
+const float CORRECTION_MAX = 1.1;
 
 uint8_t IR_GAUCHE = 1;
 uint8_t IR_DROIT = 2;
