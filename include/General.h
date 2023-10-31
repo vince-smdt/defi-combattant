@@ -19,7 +19,7 @@ void suivreCouleur();
 
 float IR_to_cm(uint8_t id);
 
-uint8_t senseur_couleur();
+uint8_t detecterCouleur();
 
 
 /****************************************/
@@ -97,7 +97,7 @@ void accelerer(float vitesseDebut, float vitesseFin, uint32_t ms) {
 
 // Suit la couleur mise en parametre
 void suivreCouleur() {
-  uint8_t couleur = senseur_couleur();
+  uint8_t couleur = detecterCouleur();
   Serial.print("Couleur: ");
   Serial.println(couleur);
 
@@ -116,7 +116,7 @@ float IR_to_cm(uint8_t id) {
 }
 
 // Retourne la couleur detectee par le senseur de couleur
-uint8_t senseur_couleur() {
+uint8_t detecterCouleur() {
   uint16_t C, R, G, B;
 
   g_tcs.getRawData(&R, &G, &B, &C);
@@ -139,23 +139,23 @@ uint8_t senseur_couleur() {
   // Serial.println(x);
   // Serial.println(y);
 
-  if (0.31<=x && x<=0.35 && 0.35<=y && y<=0.37)
+  if (0.27<=x && x<=0.35 && 0.35<=y && y<=0.37)
     {
       return VERT;
     }
-  else if (0.46<=x && x<=0.49 && 0.42<=y && y<=0.44)
+  else if (0.44<=x && x<=0.46 && 0.41<=y && y<=0.43)
     {
       return JAUNE;
     }
-  else if (0.45<=x && x<=0.47 && 0.38<=y && y<=0.40)
+  else if (0.40<=x && x<=0.44 && 0.37<=y && y<=0.39)
     {
       return ROUGE;
     }
-  else if (0.23<=x && x<=0.25 && 0.3<=y && y<=0.32)
+  else if (0.19<=x && x<=0.26 && 0.22<=y && y<=0.32)
     {
       return BLEU;
     }
-    else if (0.38<=x && x<=0.4 && 0.37<=y && y<=0.39)
+    else if (0.35<=x && x<=0.38 && 0.36<=y && y<=0.38)
     {
       return BLANC;
     }

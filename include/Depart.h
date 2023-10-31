@@ -19,8 +19,8 @@ const uint8_t MAX_APPUIES = 8; // Nb max de fois qu'on peut appuyer sur le bumpe
 /****************************************/
 
 void depart();
-void position_robot();
-void detecter_couleur_debut();
+void positionRobot();
+void detecterCouleurDebut();
 
 
 /****************************************/
@@ -31,9 +31,9 @@ void detecter_couleur_debut();
 // Detecte la couleur de depart
 // Attend le signal de depart
 void depart() {
-  position_robot();
+  positionRobot();
   // TODO - Fonction pour attendre le sifflet
-  detecter_couleur_debut();
+  detecterCouleurDebut();
 
   // TEST
   while (true) {
@@ -42,7 +42,7 @@ void depart() {
 }
 
 // Determine la position de depart du robot en fonction du nombre d'appuis sur le bumper arriere
-void position_robot() {
+void positionRobot() {
   while (!ROBUS_IsBumper(REAR)); // Attend que le bumper arriere soit appuye
 
   uint8_t appuis = 1;
@@ -62,12 +62,12 @@ void position_robot() {
   beep(g_position, 75);
 }
 
-void detecter_couleur_debut() {
+void detecterCouleurDebut() {
   g_tcs.setInterrupt(false);
   delay(250);
 
   // On reverifie la couleur de debut tant qu'on en detecte pas
-  do g_couleurDebut = senseur_couleur();
+  do g_couleurDebut = detecterCouleur();
   while (g_couleurDebut != VERT && g_couleurDebut != JAUNE);
 
   Serial.print("Couleur de début: ");
