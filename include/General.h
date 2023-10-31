@@ -3,6 +3,7 @@
 
 #include <LibRobus.h>
 #include "Constantes.h"
+#include "Globales.h"
 
 /****************************************/
 /**** FONCTIONS (DECLARATIONS) ****/
@@ -18,7 +19,7 @@ void suivreCouleur();
 
 float IR_to_cm(uint8_t id);
 
-uint8_t detecterCouleur();
+uint8_t senseur_couleur();
 
 
 /****************************************/
@@ -45,6 +46,10 @@ void arret() {
 void avancer(float vitesseG, float vitesseD) {
   MOTOR_SetSpeed(LEFT, vitesseG * g_correctionG);
   MOTOR_SetSpeed(RIGHT, vitesseD * g_correctionD);
+  Serial.print("Vitesses: ");
+  Serial.print(vitesseG * g_correctionG);
+  Serial.print(", ");
+  Serial.println(vitesseD * g_correctionD);
   delay(DELAI_AVANCER);
   correction(vitesseG, vitesseD, ENCODER_ReadReset(LEFT), ENCODER_ReadReset(RIGHT));
 }
@@ -93,8 +98,10 @@ void accelerer(float vitesseDebut, float vitesseFin, uint32_t ms) {
 // Suit la couleur mise en parametre
 void suivreCouleur() {
   uint8_t couleur = senseur_couleur();
+  Serial.print("Couleur: ");
+  Serial.println(couleur);
 
-  if (couleur <= g_couleur)
+  if (couleur <= g_couleurDebut)
     // On est sur la bonne voie
     avancer(VITESSE_BASE, VITESSE_BASE);
   else
@@ -112,21 +119,15 @@ float IR_to_cm(uint8_t id) {
 uint8_t senseur_couleur() {
   uint16_t C, R, G, B;
 
-  tcs.setInterrupt(false);
+  g_tcs.getRawData(&R, &G, &B, &C);
 
-  delay(60);
+  // Serial.println(R);
+  // Serial.println(G);
+  // Serial.println(B);
 
-  tcs.getRawData(&R, &G, &B, &C);
-
-  Serial.println(R);
-  Serial.println(G);
-  Serial.println(B);
-
-  tcs.setInterrupt(false);
+  g_tcs.setInterrupt(false);
 
   float X,Y,Z,x,y;
-
-
 
   X= (-0.14282)*(R)+(1.54924)*(G)+(-0.95641)*(B);
   Y= (-0.32466)*(R)+(1.57837)*(G)+(-0.73191)*(B);
@@ -135,11 +136,8 @@ uint8_t senseur_couleur() {
   x=X/(X+Y+Z);
   y=Y/(X+Y+Z);
 
-
-  Serial.println(x);
-  Serial.println(y);
-
-  delay(1000);
+  // Serial.println(x);
+  // Serial.println(y);
 
   if (0.31<=x && x<=0.35 && 0.35<=y && y<=0.37)
     {
@@ -165,8 +163,6 @@ uint8_t senseur_couleur() {
    {
     return AUCUNE;
    }
-
-
 }
 
 
