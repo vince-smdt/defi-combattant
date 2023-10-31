@@ -17,9 +17,9 @@ const float VITESSE_MAX = 1.0;
 const float CORRECTION_MIN = 0.9;
 const float CORRECTION_MAX = 1.1;
 
-uint8_t IR_GAUCHE = 1;
-uint8_t IR_DROIT = 2;
-uint8_t IR_DIST_MIN = 10;
-uint8_t IR_DIST_MAX = 80;
+const uint8_t IR_GAUCHE = 1;
+const uint8_t IR_DROIT = 2;
+const uint8_t IR_DIST_MIN = 10;
+const uint8_t IR_DIST_MAX = 80;
 
 #endif // CONSTANTES_H

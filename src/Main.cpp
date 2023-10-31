@@ -5,6 +5,7 @@
 #include "Depart.h"
 #include "Raccourci.h"
 #include "Verre.h"
+#include "SuivreLigne.h"
 
 /****************************************/
 /**** SETUP & LOOP ****/
@@ -21,7 +22,8 @@ void loop() {
   switch (g_etat) {
     case DEPART: { depart(); break; }
     case FAIRE_TOMBER_VERRE: { verre(); break; }
-    case SUIVRE_LIGNE_JUSQUA_PARTIE_BLANCHE: { /* Mettre la fonction de sa partie ici */ break; }
+    case SUIVRE_COULEUR_JUSQUA_PARTIE_BLANCHE: { break;}
+    case SUIVRE_LIGNE: { suivreLigne();  break; }
     case METTRE_VERRE_SUR_BALLE: { /* Mettre la fonction de sa partie ici */ break; }
     case RETOURNER_SUR_PARCOURS: { /* Mettre la fonction de sa partie ici */ break; }
     case TRAVERSER_JUMP: { /* Mettre la fonction de sa partie ici */ break; }
