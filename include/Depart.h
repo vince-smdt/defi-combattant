@@ -63,15 +63,9 @@ void positionRobot() {
 }
 
 void detecterCouleurDebut() {
-  g_tcs.setInterrupt(false);
-  delay(250);
-
   // On reverifie la couleur de debut tant qu'on en detecte pas
   do g_couleurDebut = detecterCouleur();
   while (g_couleurDebut != VERT && g_couleurDebut != JAUNE);
-
-  Serial.print("Couleur de début: ");
-  Serial.println(g_couleurDebut);
 }
 
 #endif // DEPART_H

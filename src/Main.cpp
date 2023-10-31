@@ -15,7 +15,7 @@
 void setup() {
   BoardInit();
   pinMode(A5, INPUT);
-  Serial.begin(9600);
+  g_tcs.setInterrupt(false);
 }
 
 // Boucle principale du programme, est execute plusieurs fois
