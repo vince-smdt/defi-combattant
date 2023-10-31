@@ -26,7 +26,8 @@ enum Couleur {
   BLEU = 1,
   VERT = 2,
   JAUNE = 3,
-  ROUGE = 4
+  ROUGE = 4,
+  BLANC = 5
 };
 
 #endif // TYPES_H
