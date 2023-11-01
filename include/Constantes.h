@@ -13,7 +13,7 @@
 const uint16_t DELAI_AVANCER = 50; // Delai de temps attendu a chaque iteration de boucle
 const float VITESSE_MIN = 0.15;
 const float VITESSE_BASE = 0.3; // Quand le robot suit la ligne de couleur
-const float VITESSE_TOURNER = 0.5; // QUand le robot doit tourner pour rester sur sa couleur
+//const float VITESSE_TOURNER = 0.5; // QUand le robot doit tourner pour rester sur sa couleur
 const float VITESSE_LIGNE_BASE = 0.15;
 const float VITESSE_DIFF_TOURNER = 0.05;
 const float VITESSE_TOURNER = 0.6; // QUand le robot doit tourner pour rester sur sa couleur
