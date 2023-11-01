@@ -33,12 +33,18 @@ void detecterCouleurDebut();
 void depart() {
   positionRobot();
   // TODO - Fonction pour attendre le sifflet
-  detecterCouleurDebut();
+  // detecterCouleurDebut();
+  g_couleurDebut = VERT;
 
   // TEST
-  while (true) {
-    suivreCouleur();
+  while (!ROBUS_IsBumper(REAR)) {
+    // suivreCouleur();
+    suivreMur();
   }
+
+  arret();
+  beep(3, 100);
+  delay(1000);
 }
 
 // Determine la position de depart du robot en fonction du nombre d'appuis sur le bumper arriere

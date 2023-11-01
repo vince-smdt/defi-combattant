@@ -15,11 +15,13 @@ void avancer(float vitesseG, float vitesseD);
 void correction(float vitesseG, float vitesseD, int32_t pulsesG, int32_t pulsesD);
 void avancerDuree(float vitesseG, float vitesseD, uint32_t ms);
 void accelerer(float vitesseDebut, float vitesseFin, uint32_t ms);
+void suivreMur();
 void suivreCouleur();
 
 float IR_to_cm(uint8_t id);
 
 uint8_t detecterCouleur();
+uint8_t couleurPlusProche(uint8_t red, uint8_t green, uint8_t blue);
 
 
 /****************************************/
@@ -91,6 +93,20 @@ void accelerer(float vitesseDebut, float vitesseFin, uint32_t ms) {
   avancer(vitesseFin, vitesseFin);
 }
 
+// Suit le long du mur
+void suivreMur() {
+  float dist = IR_to_cm(IR_DROIT);
+  const float DIST_ELOIGNER = 40;
+  const float DIST_RAPPROCHER = 50;
+
+  if (dist > DIST_RAPPROCHER)
+    avancer(VITESSE_TOURNER, VITESSE_BASE);
+  else if (dist < DIST_ELOIGNER)
+    avancer(VITESSE_BASE, VITESSE_TOURNER);
+  else
+    avancer(VITESSE_BASE, VITESSE_BASE);
+}
+
 // Suit la couleur mise en parametre
 void suivreCouleur() {
   uint8_t couleur = detecterCouleur();
@@ -113,25 +129,47 @@ float IR_to_cm(uint8_t id) {
 
 // Retourne la couleur detectee par le senseur de couleur
 uint8_t detecterCouleur() {
-  uint16_t C, R, G, B;
+  uint16_t clear, red, green, blue;
 
-  g_tcs.getRawData(&R, &G, &B, &C);
+  g_tcs.getRawData(&red, &green, &blue, &clear);
 
-  float X,Y,Z,x,y;
+  Serial.print("C:\t"); Serial.print(clear);
+  Serial.print("\tRed:\t"); Serial.print(red);
+  Serial.print("\tGreen:\t"); Serial.print(green);
+  Serial.print("\tBlue:\t"); Serial.println(blue);
 
-  X = (-0.14282)*(R)+(1.54924)*(G)+(-0.95641)*(B);
-  Y = (-0.32466)*(R)+(1.57837)*(G)+(-0.73191)*(B);
-  Z = (-0.68202)*(R)+(0.77073)*(G)+(0.56332)*(B);
+  uint32_t sum = clear;
+  float r, g, b;
+  r = red; r /= sum;
+  g = green; g /= sum;
+  b = blue; b /= sum;
+  r *= 256; g *= 256; b *= 256;
 
-  x = X/(X+Y+Z);
-  y = Y/(X+Y+Z);
+  Serial.print("\tR:\t"); Serial.print(r);
+  Serial.print("\tG:\t"); Serial.print(g);
+  Serial.print("\tB:\t"); Serial.println(b);
 
-  if      (0.27<=x && x<=0.35 && 0.35<=y && y<=0.37)  return VERT;
-  else if (0.44<=x && x<=0.46 && 0.41<=y && y<=0.43)  return JAUNE;
-  else if (0.40<=x && x<=0.44 && 0.37<=y && y<=0.39)  return ROUGE;
-  else if (0.19<=x && x<=0.26 && 0.22<=y && y<=0.32)  return BLEU;
-  else if (0.35<=x && x<=0.38 && 0.36<=y && y<=0.38)  return BLANC;
-  else                                                return AUCUNE_COULEUR;
+  return couleurPlusProche(r, g, b);
+}
+
+// Retourne la couleur du circuit la plus proche des valeurs RGB donnees en parametre
+uint8_t couleurPlusProche(uint8_t red, uint8_t green, uint8_t blue) {
+  uint8_t couleur = AUCUNE_COULEUR; // Couleur la plus proche
+  uint32_t distance = INT32_MAX; // Distance (relative) de la couleur la plus proche
+
+  for (int i = 0; i < NB_COULEURS; i++) {
+    uint8_t r = COULEURS[i][0];
+    uint8_t g = COULEURS[i][1];
+    uint8_t b = COULEURS[i][2];
+    uint32_t d = pow(red - r, 2) + pow(green - g, 2) + pow(blue - b, 2);
+
+    if (d < distance) {
+      distance = d;
+      couleur = COULEURS[i][3];
+    }
+  }
+
+  return couleur;
 }
 
 
