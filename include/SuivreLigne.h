@@ -16,14 +16,26 @@
 /****************************************/
 
 void suivreLigne();
+void obtenirEtatLigne();
 
 
 /****************************************/
 /**** FONCTIONS (DEFINITIONS) ****/
 /****************************************/
 
-void suivreLigne(){
+void obtenirEtatLigne(){}
 
+void suivreLigne(){
+    int valeurSenseur = 0;
+
+    while (true /* Détecter fin de la ligne*/)
+    {
+        valeurSenseur = analogRead(A5);
+        Serial.println("Valeur analogue: ");
+        Serial.println(valeurSenseur);
+        delay(2000);
+    }
+    
 }
 
 #endif // DEPART_H

@@ -14,12 +14,14 @@
 // Fonction d'initialisation du robot, est execute une seule fois
 void setup() {
   BoardInit();
+  pinMode(A5, INPUT);
+  Serial.begin(9600);
 }
 
 // Boucle principale du programme, est execute plusieurs fois
 void loop() {
   // Ce switch va determiner ce que le robot doit faire dependemment de son etat actuel
-  switch (g_etat) {
+  switch (SUIVRE_LIGNE) {
     case DEPART: { depart(); break; }
     case FAIRE_TOMBER_VERRE: { verre(); break; }
     case SUIVRE_COULEUR_JUSQUA_PARTIE_BLANCHE: { break;}
