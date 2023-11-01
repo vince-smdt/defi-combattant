@@ -26,11 +26,11 @@ const uint8_t IR_DIST_MAX = 80;
 // Les couleurs RGB du circuit
 const uint8_t NB_COULEURS = 5;
 uint8_t COULEURS[NB_COULEURS][4] = {
-  {50, 80, 100, BLEU},      // BLEU
-  {60, 100, 70, VERT},      // VERT
-  {107, 90, 38, JAUNE},   // JAUNE
-  {130, 60, 50, ROUGE},     // ROUGE
-  {88, 85, 65, BLANC}  // BLANC
+  {50, 80, 100, BLEU},  // BLEU
+  {60, 100, 70, VERT},  // VERT
+  {107, 90, 38, JAUNE}, // JAUNE
+  {130, 60, 50, ROUGE}, // ROUGE
+  {88, 85, 65, BLANC}   // BLANC
 };
 
 #endif // CONSTANTES_H

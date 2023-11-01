@@ -31,13 +31,14 @@ void detecterCouleurDebut();
 // Detecte la couleur de depart
 // Attend le signal de depart
 void depart() {
+  beep(3, 100);
   positionRobot();
   // TODO - Fonction pour attendre le sifflet
   // detecterCouleurDebut();
   g_couleurDebut = VERT;
 
   // TEST
-  while (!ROBUS_IsBumper(REAR)) {
+  while (true) {
     // suivreCouleur();
     suivreMur();
   }
