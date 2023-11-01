@@ -23,7 +23,7 @@ enum Etat {
 
 // Les couleurs de la piste
 enum Couleur {
-  AUCUNE = 0,
+  AUCUNE_COULEUR = 0,
   BLEU = 1,
   VERT = 2,
   JAUNE = 3,

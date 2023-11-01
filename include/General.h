@@ -117,48 +117,21 @@ uint8_t detecterCouleur() {
 
   g_tcs.getRawData(&R, &G, &B, &C);
 
-  // Serial.println(R);
-  // Serial.println(G);
-  // Serial.println(B);
-
-  g_tcs.setInterrupt(false);
-
   float X,Y,Z,x,y;
 
-  X= (-0.14282)*(R)+(1.54924)*(G)+(-0.95641)*(B);
-  Y= (-0.32466)*(R)+(1.57837)*(G)+(-0.73191)*(B);
-  Z=(-0.68202)*(R)+(0.77073)*(G)+(0.56332)*(B);
+  X = (-0.14282)*(R)+(1.54924)*(G)+(-0.95641)*(B);
+  Y = (-0.32466)*(R)+(1.57837)*(G)+(-0.73191)*(B);
+  Z = (-0.68202)*(R)+(0.77073)*(G)+(0.56332)*(B);
 
-  x=X/(X+Y+Z);
-  y=Y/(X+Y+Z);
+  x = X/(X+Y+Z);
+  y = Y/(X+Y+Z);
 
-  // Serial.println(x);
-  // Serial.println(y);
-
-  if (0.27<=x && x<=0.35 && 0.35<=y && y<=0.37)
-    {
-      return VERT;
-    }
-  else if (0.44<=x && x<=0.46 && 0.41<=y && y<=0.43)
-    {
-      return JAUNE;
-    }
-  else if (0.40<=x && x<=0.44 && 0.37<=y && y<=0.39)
-    {
-      return ROUGE;
-    }
-  else if (0.19<=x && x<=0.26 && 0.22<=y && y<=0.32)
-    {
-      return BLEU;
-    }
-    else if (0.35<=x && x<=0.38 && 0.36<=y && y<=0.38)
-    {
-      return BLANC;
-    }
-   else
-   {
-    return AUCUNE;
-   }
+  if      (0.27<=x && x<=0.35 && 0.35<=y && y<=0.37)  return VERT;
+  else if (0.44<=x && x<=0.46 && 0.41<=y && y<=0.43)  return JAUNE;
+  else if (0.40<=x && x<=0.44 && 0.37<=y && y<=0.39)  return ROUGE;
+  else if (0.19<=x && x<=0.26 && 0.22<=y && y<=0.32)  return BLEU;
+  else if (0.35<=x && x<=0.38 && 0.36<=y && y<=0.38)  return BLANC;
+  else                                                return AUCUNE_COULEUR;
 }
 
 
