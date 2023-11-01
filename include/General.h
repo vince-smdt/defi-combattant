@@ -46,10 +46,6 @@ void arret() {
 void avancer(float vitesseG, float vitesseD) {
   MOTOR_SetSpeed(LEFT, vitesseG * g_correctionG);
   MOTOR_SetSpeed(RIGHT, vitesseD * g_correctionD);
-  Serial.print("Vitesses: ");
-  Serial.print(vitesseG * g_correctionG);
-  Serial.print(", ");
-  Serial.println(vitesseD * g_correctionD);
   delay(DELAI_AVANCER);
   correction(vitesseG, vitesseD, ENCODER_ReadReset(LEFT), ENCODER_ReadReset(RIGHT));
 }

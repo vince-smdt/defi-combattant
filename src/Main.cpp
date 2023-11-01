@@ -21,7 +21,7 @@ void setup() {
 // Boucle principale du programme, est execute plusieurs fois
 void loop() {
   // Ce switch va determiner ce que le robot doit faire dependemment de son etat actuel
-  switch (SUIVRE_LIGNE) {
+  switch (g_etat) {
     case DEPART: { depart(); break; }
     case FAIRE_TOMBER_VERRE: { verre(); break; }
     case SUIVRE_COULEUR_JUSQUA_PARTIE_BLANCHE: { break;}

@@ -31,11 +31,11 @@ enum Couleur {
   BLANC = 5
 };
 
-enum EtatSuiveurLigne(){
+enum EtatSuiveurLigne {
   AUCUNE_LIGNE = 0,
   LIGNE_DROITE = 1,
   LIGNE_GAUCHE = 2,
   LIGNE_CENTRE = 3,
-}
+};
 
 #endif // TYPES_H
