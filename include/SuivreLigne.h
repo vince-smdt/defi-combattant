@@ -40,19 +40,19 @@ void suivreLigne(){
         switch (etatCourant)
         {
         case LIGNE_DROITE:
-            avancer(0.6f, 0.5f);
+            avancer(VITESSE_TOURNER, VITESSE_BASE);
             Serial.println("Tourne à droite");
             break;
         case LIGNE_GAUCHE:
-            avancer(0.5f, 0.6f);
+            avancer(VITESSE_BASE, VITESSE_TOURNER);
             Serial.println("Tourne à gauche");
             break;
         case LIGNE_CENTRE:
-            avancer(0.5f, 0.5f);
+            avancer(VITESSE_BASE, VITESSE_BASE);
             Serial.println("Reste au centre");
             break;
         default:
-            avancer(0.5f, 0.5f);
+            avancer(VITESSE_BASE, VITESSE_BASE);
             Serial.println("wtf");
             break;
         }
