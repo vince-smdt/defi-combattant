@@ -15,7 +15,7 @@
 void setup() {
   BoardInit();
   pinMode(A5, INPUT);
-  g_tcs.setInterrupt(false);
+  g_tcs.setInterrupt(false); // Allume la LED du capteur de couleur
 }
 
 // Boucle principale du programme, est execute plusieurs fois
@@ -23,7 +23,7 @@ void loop() {
   // Ce switch va determiner ce que le robot doit faire dependemment de son etat actuel
   switch (g_etat) {
     case DEPART: { depart(); break; }
-    case FAIRE_TOMBER_VERRE: { verre(); break; }
+    case FAIRE_TOMBER_VERRE: { /*verre();*/ break; }
     case SUIVRE_COULEUR_JUSQUA_PARTIE_BLANCHE: { break;}
     case SUIVRE_LIGNE: { suivreLigne();  break; }
     case METTRE_VERRE_SUR_BALLE: { /* Mettre la fonction de sa partie ici */ break; }

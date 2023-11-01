@@ -32,15 +32,22 @@ void initPositionServo();
 // Detecte la couleur de depart
 // Attend le signal de depart
 void depart() {
+  beep(3, 100);
   positionRobot();
   // TODO - Fonction pour attendre le sifflet
   // detecterCouleurDebut();
   initPositionServo();
+  g_couleurDebut = VERT;
+  while (true) {
+    // suivreCouleur();
+    suivreMur();
+  }
+
+  arret();
+  beep(3, 100);
+  delay(1000);
 
   // TEST
-  // while (true) {
-  //   suivreCouleur();
-  // }
 }
 
 void initPositionServo(){
