@@ -20,6 +20,7 @@ const uint8_t MAX_APPUIES = 8; // Nb max de fois qu'on peut appuyer sur le bumpe
 
 void depart();
 void position_robot();
+void detecter_couleur_debut();
 
 
 /****************************************/
@@ -32,7 +33,12 @@ void position_robot();
 void depart() {
   position_robot();
   // TODO - Fonction pour attendre le sifflet
-  // TODO - Fonction pour detecter la couleur
+  detecter_couleur_debut();
+
+  // TEST
+  while (true) {
+    suivreCouleur();
+  }
 }
 
 // Determine la position de depart du robot en fonction du nombre d'appuis sur le bumper arriere
@@ -54,6 +60,18 @@ void position_robot() {
   g_position = appuis;
 
   beep(g_position, 75);
+}
+
+void detecter_couleur_debut() {
+  g_tcs.setInterrupt(false);
+  delay(250);
+
+  // On reverifie la couleur de debut tant qu'on en detecte pas
+  do g_couleurDebut = senseur_couleur();
+  while (g_couleurDebut != VERT && g_couleurDebut != JAUNE);
+
+  Serial.print("Couleur de début: ");
+  Serial.println(g_couleurDebut);
 }
 
 #endif // DEPART_H

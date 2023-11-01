@@ -3,7 +3,7 @@
 
 
 /* Initialise with specific int time and gain values */
-Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_700MS, TCS34725_GAIN_1X);
+Adafruit_TCS34725 g_tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_700MS, TCS34725_GAIN_1X);
 const int interruptPin = 2;
 volatile boolean state = false;
 
@@ -17,10 +17,10 @@ void isr() {
 /*  tcs.getRawData() does a delay(Integration_Time) after the sensor readout.
     We don't need to wait for the next integration cycle because we receive an interrupt when the integration cycle is complete*/
 void getRawData_noDelay(uint16_t* r, uint16_t* g, uint16_t* b, uint16_t* c) {
-    *c = tcs.read16(TCS34725_CDATAL);
-    *r = tcs.read16(TCS34725_RDATAL);
-    *g = tcs.read16(TCS34725_GDATAL);
-    *b = tcs.read16(TCS34725_BDATAL);
+    *c = g_tcs.read16(TCS34725_CDATAL);
+    *r = g_tcs.read16(TCS34725_RDATAL);
+    *g = g_tcs.read16(TCS34725_GDATAL);
+    *b = g_tcs.read16(TCS34725_BDATAL);
 }
 
 
@@ -30,7 +30,7 @@ void setup() {
 
     Serial.begin(9600);
 
-    if (tcs.begin()) {
+    if (g_tcs.begin()) {
         Serial.println("Found sensor");
     } else {
         Serial.println("No TCS34725 found ... check your connections");
@@ -38,8 +38,8 @@ void setup() {
     }
 
     // Set persistence filter to generate an interrupt for every RGB Cycle, regardless of the integration limits
-    tcs.write8(TCS34725_PERS, TCS34725_PERS_NONE);
-    tcs.setInterrupt(true);
+    g_tcs.write8(TCS34725_PERS, TCS34725_PERS_NONE);
+    g_tcs.setInterrupt(true);
 
     Serial.flush();
 }
@@ -49,8 +49,8 @@ void loop() {
     if (state) {
         uint16_t r, g, b, c, colorTemp, lux;
         getRawData_noDelay(&r, &g, &b, &c);
-        colorTemp = tcs.calculateColorTemperature(r, g, b);
-        lux = tcs.calculateLux(r, g, b);
+        colorTemp = g_tcs.calculateColorTemperature(r, g, b);
+        lux = g_tcs.calculateLux(r, g, b);
 
         Serial.print("Color Temp: "); Serial.print(colorTemp, DEC); Serial.print(" K - ");
         Serial.print("Lux: "); Serial.print(lux, DEC); Serial.print(" - ");
@@ -61,7 +61,7 @@ void loop() {
         Serial.println(" ");
         Serial.flush();
 
-        tcs.clearInterrupt();
+        g_tcs.clearInterrupt();
         state = false;
     }
 }
