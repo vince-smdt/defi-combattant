@@ -21,6 +21,7 @@ const uint8_t MAX_APPUIES = 8; // Nb max de fois qu'on peut appuyer sur le bumpe
 void depart();
 void positionRobot();
 void detecterCouleurDebut();
+void initPositionServo();
 
 
 /****************************************/
@@ -33,12 +34,19 @@ void detecterCouleurDebut();
 void depart() {
   positionRobot();
   // TODO - Fonction pour attendre le sifflet
-  detecterCouleurDebut();
+  // detecterCouleurDebut();
+  initPositionServo();
 
   // TEST
-  while (true) {
-    suivreCouleur();
-  }
+  // while (true) {
+  //   suivreCouleur();
+  // }
+}
+
+void initPositionServo(){
+  SERVO_Enable(1);
+  SERVO_SetAngle(1, 90);
+  delay(1000);
 }
 
 // Determine la position de depart du robot en fonction du nombre d'appuis sur le bumper arriere

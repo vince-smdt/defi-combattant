@@ -18,6 +18,11 @@ uint8_t g_couleurDebut = AUCUNE_COULEUR; // Couleur sur laquelle le robot se ret
 bool g_erreur = false; // Indique si une erreur a eu lieu dans le programme
 bool g_fini = false; // Indique si le robot a fini la course
 
+EtatSuiveurLigne g_derniereManoeuvre = AUCUNE_LIGNE;
+
+
+unsigned long g_dureeCentre = 0;
+unsigned long g_debutCentre = 0;
 float g_correctionG = 1.0; // Coefficient de correction moteur gauche
 float g_correctionD = 1.0; // Coefficient de correction moteur droit
 Adafruit_TCS34725 g_tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_50MS, TCS34725_GAIN_4X);
