@@ -7,6 +7,7 @@
 #include "Verre.h"
 #include "SuivreLigne.h"
 #include "Sifflet.h"
+#include "Balle.h"
 
 /****************************************/
 /**** SETUP & LOOP ****/
@@ -20,7 +21,7 @@ void setup() {
   g_tcs.setInterrupt(false); // Allume la LED du capteur de couleur
 }
 
-// // Boucle principale du programme, est execute plusieurs fois
+// Boucle principale du programme, est execute plusieurs fois
 void loop() {
   // SERVO_Enable(0);
   // SERVO_SetAngle(0, 90);
@@ -51,16 +52,17 @@ void loop() {
 //     Serial.print("] = ");
 //     Serial.println(couleurMoyenne());
 //   }
+
   // Ce switch va determiner ce que le robot doit faire dependemment de son etat actuel
-  switch (g_etat) {
+   switch (SUIVRE_LIGNE) {
     case DEPART: { depart(); break; }
-    case SUIVRE_MUR_JUSQUA_POUTRE: { suivreMurDuree(8000); break; }
+    case SUIVRE_MUR_JUSQUA_POUTRE: { suivreMurDuree(8000, 35, 40); break; }
     case FAIRE_TOMBER_VERRE: { verre(); break; }
     case SUIVRE_LIGNE: { /*suivreLigne();*/  break; }
-    case METTRE_VERRE_SUR_BALLE: { /* Mettre la fonction de sa partie ici */ break; }
+    case METTRE_VERRE_SUR_BALLE: { pousserleverre(); break;}
     case RETOURNER_SUR_PARCOURS: { /* Mettre la fonction de sa partie ici */ break; }
     case TRAVERSER_JUMP: { /* Mettre la fonction de sa partie ici */ break; }
-    case TOUR_AVEC_RACCOURCI: { /*raccourci();*/ break; }
+    case TOUR_AVEC_RACCOURCI: { raccourci(); break; }
     case ARRIVE: { g_fini = true; break; }
     default: { g_erreur = true; break; } // Etat invalide, on indique qu'il y a une erreur
   }

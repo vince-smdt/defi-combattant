@@ -16,6 +16,7 @@ void verre(){
   beep(3, 100);
 
   bool verreDetecte = false;
+
   float lastDist = 0;
   float currDist = IR_to_cm(IR_DROIT);
   float diffDist = 0;
