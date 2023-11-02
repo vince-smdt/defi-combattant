@@ -34,7 +34,7 @@ void initPositionServo();
 void depart() {
   initPositionServo();
   positionRobot();
-  while (analogRead(PIN_MICRO) < MICRO_VOLUME_DEBUT); // On attend le 5k (micro)
+  // while (analogRead(PIN_MICRO) < MICRO_VOLUME_DEBUT); // On attend le 5k (micro)
   detecterCouleurDebut();
 }
 
@@ -68,7 +68,10 @@ void positionRobot() {
 
 void detecterCouleurDebut() {
   // On reverifie la couleur de debut tant qu'on en detecte pas
-  do g_couleurDebut = detecterCouleur();
+  do {
+    detecterCouleur();
+    g_couleurDebut = couleurMoyenne();
+  }
   while (g_couleurDebut != VERT && g_couleurDebut != JAUNE);
 }
 

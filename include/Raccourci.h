@@ -10,9 +10,8 @@
 /**** CONSTANTES ****/
 /****************************************/
 
-const float DISTANCE_RAPPROCHER = 17.0; // Le robot se rapproche du mur s'il s'en eloigne plus loin que cette distance en cm
-const float DISTANCE_ELOIGNER = 12.0; // Le robot s'eloigne du mur s'il en est plus proche que cette distance en cm
-const float VITESSE_RACCOURCI = 0.2; // Vitesse des roues du robot pendant qu'il fait le tour avec le raccourci
+const float DISTANCE_RAPPROCHER = 12.0; // Le robot se rapproche du mur s'il s'en eloigne plus loin que cette distance en cm
+const float DISTANCE_ELOIGNER = 10.1; // Le robot s'eloigne du mur s'il en est plus proche que cette distance en cm
 
 
 /****************************************/
@@ -28,17 +27,28 @@ void raccourci();
 
 // Fait passer le robot par le raccourci et retourne ensuite sur la piste
 void raccourci() {
-  // On longe le mur pendant tout le tour
-  while (true /* Detecter fin de tour */) {
+  uint32_t debut = millis();
+
+  // Ajustement pour que le robot soit a cote du mur (setup shortcut)
+  avancerDuree(VITESSE_BASE, 0, 800);
+  avancerDuree(VITESSE_BASE, VITESSE_BASE, g_couleurDebut == VERT ? 500 : 1400);
+  avancerDuree(0, VITESSE_BASE, 800);
+
+  // Loop pour longer le mur pour le shortcut
+  while (millis() - debut < 25000) {
     float dist = IR_to_cm(IR_DROIT);
 
     if (dist > DISTANCE_RAPPROCHER)
-      avancer(VITESSE_RACCOURCI, 0);
+      avancer(VITESSE_BASE, 0);
     else if (dist < DISTANCE_ELOIGNER)
-      avancer(0, VITESSE_RACCOURCI);
+      avancer(0, VITESSE_BASE);
     else
-      avancer(VITESSE_RACCOURCI, VITESSE_RACCOURCI);
+      avancer(VITESSE_BASE, VITESSE_BASE);
   }
+
+  arret();
+  beep(3, 100);
+  g_fini = true;
 }
 
 #endif // RACCOURCI_H

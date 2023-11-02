@@ -11,7 +11,7 @@
 /****************************************/
 
 const uint8_t PIN_MICRO = A0;
-const int16_t MICRO_VOLUME_DEBUT = 650;
+const int16_t MICRO_VOLUME_DEBUT = 600;
 
 const uint16_t DELAI_AVANCER = 50; // Delai de temps attendu a chaque iteration de boucle
 const float VITESSE_MIN = 0.15;

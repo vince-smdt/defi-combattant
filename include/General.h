@@ -52,6 +52,9 @@ void avancer(float vitesseG, float vitesseD) {
   MOTOR_SetSpeed(RIGHT, vitesseD * g_correctionD);
   delay(DELAI_AVANCER);
   correction(vitesseG, vitesseD, ENCODER_ReadReset(LEFT), ENCODER_ReadReset(RIGHT));
+  Serial.print(g_correctionG);
+  Serial.print(", ");
+  Serial.println(g_correctionD);
 }
 
 // Fait le calcul des coefficients de correction, les pulses representent la dist parcourue depuis la derniere mesure

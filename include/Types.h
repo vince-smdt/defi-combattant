@@ -11,13 +11,13 @@
 // N'oubliez pas de modifier les nombres si vous ajoutez des etats
 enum Etat {
   DEPART,
+  TOUR_AVEC_RACCOURCI,
   SUIVRE_MUR_JUSQUA_POUTRE,
   FAIRE_TOMBER_VERRE,
   SUIVRE_LIGNE,
   METTRE_VERRE_SUR_BALLE,
   RETOURNER_SUR_PARCOURS,
   TRAVERSER_JUMP,
-  TOUR_AVEC_RACCOURCI,
   ARRIVE
 };
 
