@@ -15,6 +15,7 @@ const float VITESSE_MIN = 0.15;
 const float VITESSE_BASE = 0.3; // Quand le robot suit la ligne de couleur
 //const float VITESSE_TOURNER = 0.5; // QUand le robot doit tourner pour rester sur sa couleur
 const float VITESSE_LIGNE_BASE = 0.15;
+const float VITESSE_LIGNE_TOURNE_BASE = 0.2;
 const float VITESSE_DIFF_TOURNER = 0.05;
 const float VITESSE_TOURNER = 0.6; // QUand le robot doit tourner pour rester sur sa couleur
 const float VITESSE_MAX = 1.0;
