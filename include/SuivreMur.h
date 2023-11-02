@@ -53,7 +53,7 @@ float moyenneDistMur() {
 
 void suivreMurCouleur() {
   if (g_couleurDebut == VERT) {
-    suivreMurDuree(8000, 33, 38);
+    suivreMurDuree(10500, 33, 38);
   }
   else {
     delay(50);

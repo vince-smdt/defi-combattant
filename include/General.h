@@ -50,9 +50,6 @@ void avancer(float vitesseG, float vitesseD) {
   MOTOR_SetSpeed(RIGHT, vitesseD * g_correctionD);
   delay(DELAI_AVANCER);
   correction(vitesseG, vitesseD, ENCODER_ReadReset(LEFT), ENCODER_ReadReset(RIGHT));
-  Serial.print(g_correctionG);
-  Serial.print(", ");
-  Serial.println(g_correctionD);
 }
 
 // Fait le calcul des coefficients de correction, les pulses representent la dist parcourue depuis la derniere mesure
@@ -99,8 +96,6 @@ void accelerer(float vitesseDebut, float vitesseFin, uint32_t ms) {
 // Suit la couleur mise en parametre
 void suivreCouleur() {
   uint8_t couleur = detecterCouleur();
-  Serial.print("Couleur: ");
-  Serial.println(couleur);
 
   if (couleur <= g_couleurDebut)
     // On est sur la bonne voie
@@ -128,10 +123,6 @@ uint8_t detecterCouleur() {
   g = green; g /= sum;
   b = blue; b /= sum;
   r *= 256; g *= 256; b *= 256;
-
-  // Serial.print("\tR:\t"); Serial.print(r);
-  // Serial.print("\tG:\t"); Serial.print(g);
-  // Serial.print("\tB:\t"); Serial.println(b);
 
   uint8_t couleur = couleurPlusProche(r, g, b);
   g_dernieresCouleurs[g_indexDerniereCouleur] = couleur;

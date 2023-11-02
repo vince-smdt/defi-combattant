@@ -31,7 +31,7 @@ void raccourci() {
 
   // Ajustement pour que le robot soit a cote du mur (setup shortcut)
   avancerDuree(VITESSE_BASE, 0, 750);
-  avancerDuree(VITESSE_BASE, VITESSE_BASE, g_couleurDebut == VERT ? 500 : 1400);
+  avancerDuree(VITESSE_BASE, VITESSE_BASE, g_couleurDebut == VERT ? 550 : 1550);
   avancerDuree(0, VITESSE_BASE, 750);
 
   // Loop pour longer le mur pour le shortcut
@@ -39,9 +39,9 @@ void raccourci() {
     float dist = IR_to_cm(IR_DROIT);
 
     if (dist > DISTANCE_RAPPROCHER)
-      avancer(VITESSE_BASE, 0);
+      avancer(VITESSE_BASE - 0.1, 0);
     else if (dist < DISTANCE_ELOIGNER)
-      avancer(0, VITESSE_BASE);
+      avancer(0, VITESSE_BASE - 0.1);
     else
       avancer(VITESSE_BASE, VITESSE_BASE);
   }

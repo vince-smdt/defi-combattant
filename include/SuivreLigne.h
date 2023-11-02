@@ -17,6 +17,7 @@
 
 void suivreLigne();
 EtatSuiveurLigne obtenirEtatLigne();
+void suivreLigneJank();
 
 
 /****************************************/
@@ -73,6 +74,19 @@ void suivreLigne(){
         }
     }
     
+}
+
+// Fuck la balle
+void suivreLigneJank() {
+    if (g_couleurDebut == JAUNE) {
+        avancerDuree(0.2, 0, 500);
+        avancerDuree(0.4, 0.335, 9500);
+    }
+    else
+        avancerDuree(0.4, 0.3, 7500);
+
+    arret();
+    beep(5, 100);
 }
 
 #endif // DEPART_H

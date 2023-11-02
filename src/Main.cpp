@@ -27,13 +27,19 @@ void loop() {
   // Ce switch va determiner ce que le robot doit faire dependemment de son etat actuel
   switch (g_etat) {
     case DEPART: { depart(); break; }
-    case TOUR_AVEC_RACCOURCI: { /*raccourci();*/ break; }
-    case SUIVRE_MUR_JUSQUA_POUTRE: { /*suivreMurCouleur();*/ break; }
-    case FAIRE_TOMBER_VERRE: { /*verre();*/ break; }
-    case SUIVRE_LIGNE: { avancerDuree(0.4, 0.2, 8000); break; }
-    case METTRE_VERRE_SUR_BALLE: { pousserleverre(); break;}
-    case RETOURNER_SUR_PARCOURS: { /* Mettre la fonction de sa partie ici */ break; }
-    case TRAVERSER_JUMP: { /* Mettre la fonction de sa partie ici */ break; }
+    case TOUR_AVEC_RACCOURCI: { raccourci(); break; }
+    case SUIVRE_MUR_JUSQUA_POUTRE: { suivreMurCouleur(); break; }
+    case FAIRE_TOMBER_VERRE: { verre(); break; }
+    case SUIVRE_LIGNE: { suivreLigneJank(); break; }
+    case METTRE_VERRE_SUR_BALLE: { arret(); break;}
+    case FINIR_TOUR: { 
+      avancerDuree(VITESSE_BASE, VITESSE_BASE, 3000);
+      if (g_couleurDebut == VERT)
+        suivreMurDuree(3000, 33, 38);
+      else
+        suivreMurDuree(3000, 74.5, 79.5);
+      break; 
+    }
     case ARRIVE: { g_fini = true; break; }
     default: { g_erreur = true; break; } // Etat invalide, on indique qu'il y a une erreur
   }
