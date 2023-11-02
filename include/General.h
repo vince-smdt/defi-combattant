@@ -120,6 +120,7 @@ void suivreMurDuree(uint32_t ms, float dist_eloigner, float dist_rapprocher) {
     suivreMur(dist_eloigner, dist_rapprocher);
 }
 
+
 // Suit la couleur mise en parametre
 void suivreCouleur() {
   uint8_t couleur = detecterCouleur();
