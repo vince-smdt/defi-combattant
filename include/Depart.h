@@ -34,9 +34,7 @@ void initPositionServo();
 void depart() {
   initPositionServo();
   positionRobot();
-  
-  while (false /*sifflet n'a pas entendu le 5k*/) ;
-
+  while (analogRead(PIN_MICRO) < MICRO_VOLUME_DEBUT); // On attend le 5k (micro)
   detecterCouleurDebut();
 }
 
