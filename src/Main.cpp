@@ -37,7 +37,7 @@ void loop() {
   // Ce switch va determiner ce que le robot doit faire dependemment de son etat actuel
   switch (g_etat) {
     case DEPART: { depart(); break; }
-    case SUIVRE_MUR_JUSQUA_POUTRE: { suivreMurDuree(8000); break; }
+    case SUIVRE_MUR_JUSQUA_POUTRE: { suivreMurDuree(8000, 35, 40); break; }
     case FAIRE_TOMBER_VERRE: { verre(); break; }
     case SUIVRE_COULEUR_JUSQUA_PARTIE_BLANCHE: { break;}
     case SUIVRE_LIGNE: { /*suivreLigne();*/  break; }
