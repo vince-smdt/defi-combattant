@@ -15,21 +15,32 @@ void verre(){
   arret();
   beep(3, 100);
 
-  bool verreDetecte = false;
-  while (couleurMoyenne() != BLANC && couleurMoyenne() != JAUNE) {
+  //bool verreDetecte = false;
+  while (couleurMoyenne() != BLANC) {
     avancer(0.4, 0.4);
-    if (IR_to_cm(IR_GAUCHE) < 15 && !verreDetecte) {
-      arret();
-      beep(10, 50);
-      verreDetecte = true;
+    if (couleurMoyenne() == JAUNE)
+    {
+      suivreMur(0, 10.5);
+      if (digitalRead(49) == 0 || digitalRead(33) == 0)
+      {
+        SERVO_SetAngle(0, 180);
+        delay(3000);
+        RetouneEtatInitial();
+      }
     }
-  }
 
-  while (couleurMoyenne() == JAUNE)
-  {
-    avancer(0.4, 0.4);
+    else if (couleurMoyenne() == JAUNE)
+    {
+      if (IR_to_cm(IR_GAUCHE)< 15){
+        SERVO_SetAngle(0, 0);
+        delay(3000);
+       RetouneEtatInitial();
+    }
+    
     
   }
+
+  
 
   arret();
 
@@ -47,7 +58,7 @@ void verre(){
   //     RetouneEtatInitial();
   //   }
   // }
+  }
 }
-
 
 #endif // VERRE_H
