@@ -16,25 +16,49 @@
 // Fonction d'initialisation du robot, est execute une seule fois
 void setup() {
   BoardInit();
-  pinMode(A5, INPUT);
   pinMode(A0, INPUT);
+  pinMode(A5, INPUT);
   g_tcs.setInterrupt(false); // Allume la LED du capteur de couleur
 }
 
 // Boucle principale du programme, est execute plusieurs fois
 void loop() {
-  while (CheckWhistle()==false){
-      Serial.print ("attente\n");
-      Serial.print (analogRead(A0));
-      delay (1000);
-  }
-  
+  // SERVO_Enable(0);
+  // SERVO_SetAngle(0, 90);
+  // delay(500);
+  // while(true){
+  //   if (IR_to_cm(IR_GAUCHE)< 15){
+  //     SERVO_SetAngle(0, 0);
+  //     delay(500);
+  //     RetouneEtatInitial();
+  //   }
+  //   if (IR_to_cm(IR_DROIT)< 15){
+  //     SERVO_SetAngle(0, 180);
+  //     delay(500);
+  //     RetouneEtatInitial();
+  //   }
+  // }
+
+
+//   while (true) {
+//     // Serial.println(detecterCouleur());
+//     detecterCouleur();
+
+//     Serial.print("[");
+//     for (int i = 0; i < NB_DERNIERES_COULEURS; i++) {
+//       Serial.print(g_dernieresCouleurs[i]);
+//       Serial.print(", ");
+//     }
+//     Serial.print("] = ");
+//     Serial.println(couleurMoyenne());
+//   }
+
   // Ce switch va determiner ce que le robot doit faire dependemment de son etat actuel
    switch (SUIVRE_LIGNE) {
     case DEPART: { depart(); break; }
-    case FAIRE_TOMBER_VERRE: { /*verre();*/ break; }
-    case SUIVRE_COULEUR_JUSQUA_PARTIE_BLANCHE: { break;}
-    case SUIVRE_LIGNE: { suivreLigne();  break; }
+    case SUIVRE_MUR_JUSQUA_POUTRE: { suivreMurDuree(8000, 35, 40); break; }
+    case FAIRE_TOMBER_VERRE: { verre(); break; }
+    case SUIVRE_LIGNE: { /*suivreLigne();*/  break; }
     case METTRE_VERRE_SUR_BALLE: { pousserleverre(); break;}
     case RETOURNER_SUR_PARCOURS: { /* Mettre la fonction de sa partie ici */ break; }
     case TRAVERSER_JUMP: { /* Mettre la fonction de sa partie ici */ break; }
