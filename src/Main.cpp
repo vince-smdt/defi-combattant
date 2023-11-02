@@ -6,6 +6,7 @@
 #include "Raccourci.h"
 #include "Verre.h"
 #include "SuivreLigne.h"
+#include "Sifflet.h"
 
 /****************************************/
 /**** SETUP & LOOP ****/
@@ -15,13 +16,21 @@
 void setup() {
   BoardInit();
   pinMode(A5, INPUT);
+  pinMode(A0, INPUT);
   g_tcs.setInterrupt(false); // Allume la LED du capteur de couleur
 }
 
 // Boucle principale du programme, est execute plusieurs fois
 void loop() {
+  while (CheckWhistle()==false){
+      Serial.print ("attente\n");
+      Serial.print (analogRead(A0));
+      delay (1000);
+  }
+  
   // Ce switch va determiner ce que le robot doit faire dependemment de son etat actuel
-  switch (SUIVRE_LIGNE) {
+   Serial.print ("depart");
+   switch (SUIVRE_LIGNE) {
     case DEPART: { depart(); break; }
     case FAIRE_TOMBER_VERRE: { /*verre();*/ break; }
     case SUIVRE_COULEUR_JUSQUA_PARTIE_BLANCHE: { break;}
