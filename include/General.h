@@ -15,7 +15,7 @@ void avancer(float vitesseG, float vitesseD);
 void correction(float vitesseG, float vitesseD, int32_t pulsesG, int32_t pulsesD);
 void avancerDuree(float vitesseG, float vitesseD, uint32_t ms);
 void accelerer(float vitesseDebut, float vitesseFin, uint32_t ms);
-void suivreMur();
+void suivreMur(float dist_eloigner, float dist_rapprocher);
 void suivreMurDuree(uint32_t ms);
 void suivreCouleur();
 
@@ -96,7 +96,7 @@ void accelerer(float vitesseDebut, float vitesseFin, uint32_t ms) {
 }
 
 // Suit le long du mur
-void suivreMur() {
+void suivreMur(float dist_eloigner, float dist_rapprocher) {
   float dist = IR_to_cm(IR_DROIT);
   const float DIST_ELOIGNER = 35;
   const float DIST_RAPPROCHER = 40;
@@ -114,7 +114,7 @@ void suivreMur() {
 void suivreMurDuree(uint32_t ms) {
   uint32_t debut = millis();
   while (millis() - debut < ms)
-    suivreMur();
+    suivreMur(35, 40);
 }
 
 // Suit la couleur mise en parametre
