@@ -3,9 +3,10 @@
 
 #include "General.h"
 // Detecter la balle et fait tomber le verre sur la balle
-void balle(){
+void pousserleverre(){
+  Serial.print ("debut pousser le verre");
+  SERVO_Enable (2);
   SERVO_SetAngle(1, 0);
-  delay(1000);
 }
 
 #endif // BALLE_H
