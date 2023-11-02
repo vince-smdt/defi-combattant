@@ -10,15 +10,16 @@
 // Les etats possibles que le robot peut avoir, sont obligatoirement sequentiels (un apres l'autre)
 // N'oubliez pas de modifier les nombres si vous ajoutez des etats
 enum Etat {
-  DEPART = 0,
-  FAIRE_TOMBER_VERRE = 1,
-  SUIVRE_COULEUR_JUSQUA_PARTIE_BLANCHE = 2,
-  SUIVRE_LIGNE = 3,
-  METTRE_VERRE_SUR_BALLE = 4,
-  RETOURNER_SUR_PARCOURS = 5,
-  TRAVERSER_JUMP = 6,
-  TOUR_AVEC_RACCOURCI = 7,
-  ARRIVE = 8
+  DEPART,
+  SUIVRE_MUR_JUSQUA_POUTRE,
+  FAIRE_TOMBER_VERRE,
+  SUIVRE_COULEUR_JUSQUA_PARTIE_BLANCHE,
+  SUIVRE_LIGNE,
+  METTRE_VERRE_SUR_BALLE,
+  RETOURNER_SUR_PARCOURS,
+  TRAVERSER_JUMP,
+  TOUR_AVEC_RACCOURCI,
+  ARRIVE
 };
 
 // Les couleurs de la piste

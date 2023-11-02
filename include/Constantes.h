@@ -12,8 +12,8 @@
 
 const uint16_t DELAI_AVANCER = 50; // Delai de temps attendu a chaque iteration de boucle
 const float VITESSE_MIN = 0.15;
-const float VITESSE_BASE = 0.3; // Quand le robot suit la ligne de couleur
-const float VITESSE_TOURNER = 0.6; // QUand le robot doit tourner pour rester sur sa couleur
+const float VITESSE_BASE = 0.4; // Quand le robot suit la ligne de couleur
+const float VITESSE_TOURNER = 0.7; // QUand le robot doit tourner pour rester sur sa couleur
 const float VITESSE_MAX = 1.0;
 const float CORRECTION_MIN = 0.9;
 const float CORRECTION_MAX = 1.1;
@@ -32,5 +32,6 @@ uint8_t COULEURS[NB_COULEURS][4] = {
   {130, 60, 50, ROUGE}, // ROUGE
   {88, 85, 65, BLANC}   // BLANC
 };
+const uint8_t NB_DERNIERES_COULEURS = 10; // Nb couleurs gardees dans le buffer pour calculer la moyenne
 
 #endif // CONSTANTES_H

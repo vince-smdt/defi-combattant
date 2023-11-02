@@ -16,12 +16,14 @@ void correction(float vitesseG, float vitesseD, int32_t pulsesG, int32_t pulsesD
 void avancerDuree(float vitesseG, float vitesseD, uint32_t ms);
 void accelerer(float vitesseDebut, float vitesseFin, uint32_t ms);
 void suivreMur();
+void suivreMurDuree(uint32_t ms);
 void suivreCouleur();
 
 float IR_to_cm(uint8_t id);
 
 uint8_t detecterCouleur();
 uint8_t couleurPlusProche(uint8_t red, uint8_t green, uint8_t blue);
+uint8_t couleurMoyenne();
 
 
 /****************************************/
@@ -96,8 +98,9 @@ void accelerer(float vitesseDebut, float vitesseFin, uint32_t ms) {
 // Suit le long du mur
 void suivreMur() {
   float dist = IR_to_cm(IR_DROIT);
-  const float DIST_ELOIGNER = 40;
-  const float DIST_RAPPROCHER = 50;
+  const float DIST_ELOIGNER = 35;
+  const float DIST_RAPPROCHER = 40;
+  Serial.println(dist);
 
   if (dist > DIST_RAPPROCHER)
     avancer(VITESSE_TOURNER, VITESSE_BASE);
@@ -105,6 +108,13 @@ void suivreMur() {
     avancer(VITESSE_BASE, VITESSE_TOURNER);
   else
     avancer(VITESSE_BASE, VITESSE_BASE);
+}
+
+// Longe le mur pendant un certain temps
+void suivreMurDuree(uint32_t ms) {
+  uint32_t debut = millis();
+  while (millis() - debut < ms)
+    suivreMur();
 }
 
 // Suit la couleur mise en parametre
@@ -133,11 +143,6 @@ uint8_t detecterCouleur() {
 
   g_tcs.getRawData(&red, &green, &blue, &clear);
 
-  Serial.print("C:\t"); Serial.print(clear);
-  Serial.print("\tRed:\t"); Serial.print(red);
-  Serial.print("\tGreen:\t"); Serial.print(green);
-  Serial.print("\tBlue:\t"); Serial.println(blue);
-
   uint32_t sum = clear;
   float r, g, b;
   r = red; r /= sum;
@@ -145,11 +150,14 @@ uint8_t detecterCouleur() {
   b = blue; b /= sum;
   r *= 256; g *= 256; b *= 256;
 
-  Serial.print("\tR:\t"); Serial.print(r);
-  Serial.print("\tG:\t"); Serial.print(g);
-  Serial.print("\tB:\t"); Serial.println(b);
+  // Serial.print("\tR:\t"); Serial.print(r);
+  // Serial.print("\tG:\t"); Serial.print(g);
+  // Serial.print("\tB:\t"); Serial.println(b);
 
-  return couleurPlusProche(r, g, b);
+  uint8_t couleur = couleurPlusProche(r, g, b);
+  g_dernieresCouleurs[g_indexDerniereCouleur] = couleur;
+  ++g_indexDerniereCouleur %= NB_DERNIERES_COULEURS;
+  return couleur;
 }
 
 // Retourne la couleur du circuit la plus proche des valeurs RGB donnees en parametre
@@ -170,6 +178,27 @@ uint8_t couleurPlusProche(uint8_t red, uint8_t green, uint8_t blue) {
   }
 
   return couleur;
+}
+
+// Retourne la couleur la plus frequente des x dernieres mesures
+uint8_t couleurMoyenne() {
+  uint16_t frequences[NB_COULEURS + 1] = {0}; // +1 pour le AUCUNE_COULEUR
+  uint8_t plusFrequente = AUCUNE_COULEUR;
+  uint8_t occurences = 0;
+
+  // On determine les frequences de chaque couleur
+  for (int i = AUCUNE_COULEUR; i < NB_DERNIERES_COULEURS; i++)
+    frequences[g_dernieresCouleurs[i]]++;
+
+  // On trouve la couleur la plus frequente
+  for (int i = AUCUNE_COULEUR; i <= NB_COULEURS; i++) {
+    if (occurences < frequences[i]) {
+      plusFrequente = i;
+      occurences = frequences[i];
+    }
+  }
+
+  return plusFrequente;
 }
 
 

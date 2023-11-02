@@ -6,6 +6,7 @@
 
 #include <LibRobus.h>
 #include "Types.h"
+#include "Constantes.h"
 #include <Adafruit_TCS34725.h>
 /****************************************/
 /**** VARIABLES GLOBALES ****/
@@ -21,5 +22,8 @@ bool g_fini = false; // Indique si le robot a fini la course
 float g_correctionG = 1.0; // Coefficient de correction moteur gauche
 float g_correctionD = 1.0; // Coefficient de correction moteur droit
 Adafruit_TCS34725 g_tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_50MS, TCS34725_GAIN_4X);
+
+uint8_t g_dernieresCouleurs[NB_DERNIERES_COULEURS] = {0}; // Assumant que 0 = AUCUNE_COULEUR
+uint8_t g_indexDerniereCouleur = 0; // Indice d'ecriture de la derniere couleur
 
 #endif // GLOBALES_H
