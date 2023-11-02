@@ -100,7 +100,7 @@ void suivreMur() {
   float dist = IR_to_cm(IR_DROIT);
   const float DIST_ELOIGNER = 35;
   const float DIST_RAPPROCHER = 40;
-  Serial.println(dist);
+  //Serial.println(dist);
 
   if (dist > DIST_RAPPROCHER)
     avancer(VITESSE_TOURNER, VITESSE_BASE);

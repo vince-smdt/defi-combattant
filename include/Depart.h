@@ -40,6 +40,7 @@ void depart() {
   detecterCouleurDebut();
 }
 
+// Position initiale du servo pour faire tomber le verre sur la balle
 void initPositionServo(){
   SERVO_Enable(1);
   SERVO_SetAngle(1, 90);

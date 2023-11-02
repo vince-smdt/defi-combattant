@@ -17,7 +17,11 @@ void verre(){
 
   bool verreDetecte = false;
   while (couleurMoyenne() != BLANC) {
-    avancer(0.4, 0.4);
+    if (IR_to_cm(IR_DROIT) < 35)
+      avancer(VITESSE_BASE, VITESSE_TOURNER);
+    else
+      avancer(VITESSE_BASE, VITESSE_BASE);
+
     if (IR_to_cm(IR_GAUCHE) < 15 && !verreDetecte) {
       arret();
       beep(10, 50);
