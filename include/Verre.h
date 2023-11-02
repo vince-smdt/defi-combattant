@@ -2,22 +2,37 @@
 #define VERRE_H 
 
 #include "General.h"
+#include "SuivreMur.h"
 
 void RetouneEtatInitial(){
   SERVO_SetAngle(0, 90);
   delay(500);
 }
 
-
-
 // Detecte et fait tomber le verre
 void verre(){
   arret();
   beep(3, 100);
 
-  bool verreDetecte = false;
+  uint32_t debut = millis();
+  const uint16_t TEMPS_POUR_CENTRER = 3000;
+  float distLast = 0;
+  float distCurr = millis();
+  float distDiff = 0;
+
   while (couleurMoyenne() != BLANC) {
-    avancer(0.4, 0.4);
+
+    distLast = distCurr;
+    distCurr = millis();
+    distDiff = distCurr - distLast;
+
+    if (millis() - debut > TEMPS_POUR_CENTRER || distDiff == 0)
+      avancer(VITESSE_BASE, VITESSE_BASE);
+    else if (distDiff > 0)
+      avancer(VITESSE_BASE, VITESSE_BASE - 0.05);
+    else
+      avancer(VITESSE_BASE - 0.05, VITESSE_BASE);
+
     if (couleurMoyenne() == JAUNE)
     {
       suivreMur(0, 10.5);
@@ -36,11 +51,7 @@ void verre(){
         RetouneEtatInitial();
       }
     }
-    
-    
   }
-
-  
 
   arret();
 

@@ -15,8 +15,6 @@ void avancer(float vitesseG, float vitesseD);
 void correction(float vitesseG, float vitesseD, int32_t pulsesG, int32_t pulsesD);
 void avancerDuree(float vitesseG, float vitesseD, uint32_t ms);
 void accelerer(float vitesseDebut, float vitesseFin, uint32_t ms);
-void suivreMur(float dist_eloigner, float dist_rapprocher);
-void suivreMurDuree(uint32_t ms, float dist_eloigner, float dist_rapprocher);
 void suivreCouleur();
 
 float IR_to_cm(uint8_t id);
@@ -97,29 +95,6 @@ void accelerer(float vitesseDebut, float vitesseFin, uint32_t ms) {
   }
   avancer(vitesseFin, vitesseFin);
 }
-
-// Suit le long du mur
-void suivreMur(float dist_eloigner, float dist_rapprocher) {
-  float dist = IR_to_cm(IR_DROIT);
-  const float DIST_ELOIGNER = 35;
-  const float DIST_RAPPROCHER = 40;
-  //Serial.println(dist);
-
-  if (dist > DIST_RAPPROCHER)
-    avancer(VITESSE_TOURNER, VITESSE_BASE);
-  else if (dist < DIST_ELOIGNER)
-    avancer(VITESSE_BASE, VITESSE_TOURNER);
-  else
-    avancer(VITESSE_BASE, VITESSE_BASE);
-}
-
-// Longe le mur pendant un certain temps
-void suivreMurDuree(uint32_t ms, float dist_eloigner, float dist_rapprocher) {
-  uint32_t debut = millis();
-  while (millis() - debut < ms)
-    suivreMur(dist_eloigner, dist_rapprocher);
-}
-
 
 // Suit la couleur mise en parametre
 void suivreCouleur() {

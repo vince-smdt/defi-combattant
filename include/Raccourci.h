@@ -48,7 +48,6 @@ void raccourci() {
 
   arret();
   beep(3, 100);
-  g_fini = true;
 }
 
 #endif // RACCOURCI_H

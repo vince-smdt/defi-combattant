@@ -68,11 +68,22 @@ void positionRobot() {
 
 void detecterCouleurDebut() {
   // On reverifie la couleur de debut tant qu'on en detecte pas
+  uint16_t mesures = 0;
+
   do {
     detecterCouleur();
     g_couleurDebut = couleurMoyenne();
+    mesures++;
   }
-  while (g_couleurDebut != VERT && g_couleurDebut != JAUNE);
+  while (mesures < NB_DERNIERES_COULEURS && g_couleurDebut != VERT && g_couleurDebut != JAUNE);
+
+
+
+  // TEST
+  if (g_couleurDebut == VERT)
+    beep(4, 50);
+  else
+    beep(8, 50);
 }
 
 #endif // DEPART_H

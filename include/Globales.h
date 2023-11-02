@@ -31,4 +31,8 @@ Adafruit_TCS34725 g_tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_50MS, TCS34
 uint8_t g_dernieresCouleurs[NB_DERNIERES_COULEURS] = {0}; // Assumant que 0 = AUCUNE_COULEUR
 uint8_t g_indexDerniereCouleur = 0; // Indice d'ecriture de la derniere couleur
 
+float g_dernieresMesures[NB_DERNIERES_MESURES] = {0};
+uint8_t g_indexDerniereMesure = 0;
+uint8_t g_nbMesures = 0;
+
 #endif // GLOBALES_H

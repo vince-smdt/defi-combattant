@@ -40,4 +40,6 @@ uint8_t COULEURS[NB_COULEURS][4] = {
 };
 const uint8_t NB_DERNIERES_COULEURS = 10; // Nb couleurs gardees dans le buffer pour calculer la moyenne
 
+const uint8_t NB_DERNIERES_MESURES = 10;
+
 #endif // CONSTANTES_H
