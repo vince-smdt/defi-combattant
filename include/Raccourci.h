@@ -30,9 +30,9 @@ void raccourci() {
   uint32_t debut = millis();
 
   // Ajustement pour que le robot soit a cote du mur (setup shortcut)
-  avancerDuree(VITESSE_BASE, 0, 800);
+  avancerDuree(VITESSE_BASE, 0, 750);
   avancerDuree(VITESSE_BASE, VITESSE_BASE, g_couleurDebut == VERT ? 500 : 1400);
-  avancerDuree(0, VITESSE_BASE, 800);
+  avancerDuree(0, VITESSE_BASE, 750);
 
   // Loop pour longer le mur pour le shortcut
   while (millis() - debut < 25000) {

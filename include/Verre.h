@@ -47,7 +47,6 @@ void verre(){
   //     RetouneEtatInitial();
   //   }
   // }
-  }
 }
 
 #endif // VERRE_H
