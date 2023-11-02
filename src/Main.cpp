@@ -6,6 +6,7 @@
 #include "Raccourci.h"
 #include "Verre.h"
 #include "SuivreLigne.h"
+#include "Sifflet.h"
 
 /****************************************/
 /**** SETUP & LOOP ****/
@@ -15,6 +16,7 @@
 void setup() {
   BoardInit();
   pinMode(A5, INPUT);
+  pinMode(A0, INPUT);
   g_tcs.setInterrupt(false); // Allume la LED du capteur de couleur
 }
 
