@@ -25,14 +25,19 @@ EtatSuiveurLigne obtenirEtatLigne();
 
 EtatSuiveurLigne obtenirEtatLigne(){
     int valeurSenseur = analogRead(A5);
-    if(valeurSenseur > 750 && valeurSenseur < 850) return LIGNE_GAUCHE;
-    if (valeurSenseur > 380 && valeurSenseur < 470) return LIGNE_DROITE;
-    if (valeurSenseur > 620 && valeurSenseur < 710) return LIGNE_CENTRE;
-    return AUCUNE_LIGNE;
+    if(valeurSenseur > 400 && valeurSenseur < 500){
+        return LIGNE_GAUCHE;
+    } 
+    if (valeurSenseur > 800 && valeurSenseur < 900){
+        return LIGNE_DROITE;
+    }
+    if (valeurSenseur > 650 && valeurSenseur < 750){
+        return LIGNE_CENTRE;
+    } 
+    return g_derniereManoeuvre;
 }
 
 void suivreLigne(){
-
     while (true /* Détecter fin de la ligne*/)
     {
         EtatSuiveurLigne etatCourant = obtenirEtatLigne();
@@ -40,19 +45,29 @@ void suivreLigne(){
         switch (etatCourant)
         {
         case LIGNE_DROITE:
-            avancer(VITESSE_TOURNER, VITESSE_BASE);
+            avancer(VITESSE_LIGNE_TOURNE_BASE + VITESSE_DIFF_TOURNER, -1*(VITESSE_LIGNE_TOURNE_BASE - VITESSE_DIFF_TOURNER));
             Serial.println("Tourne à droite");
+            g_debutCentre = 0;
+            g_derniereManoeuvre = etatCourant;
             break;
         case LIGNE_GAUCHE:
-            avancer(VITESSE_BASE, VITESSE_TOURNER);
+            avancer(-1*(VITESSE_LIGNE_TOURNE_BASE - VITESSE_DIFF_TOURNER), VITESSE_LIGNE_TOURNE_BASE + VITESSE_DIFF_TOURNER);
             Serial.println("Tourne à gauche");
+            g_debutCentre = 0;
+            g_derniereManoeuvre = etatCourant;
             break;
         case LIGNE_CENTRE:
-            avancer(VITESSE_BASE, VITESSE_BASE);
+            avancer(VITESSE_LIGNE_TOURNE_BASE, VITESSE_LIGNE_TOURNE_BASE);
             Serial.println("Reste au centre");
+            if(g_debutCentre == 0){
+                g_debutCentre = millis();
+                g_dureeCentre = 0;
+            }else{
+                g_dureeCentre = millis() - g_debutCentre;
+            }
             break;
         default:
-            avancer(VITESSE_BASE, VITESSE_BASE);
+            avancer(VITESSE_LIGNE_TOURNE_BASE, VITESSE_LIGNE_TOURNE_BASE);
             Serial.println("wtf");
             break;
         }

@@ -33,10 +33,6 @@ void loop() {
 //     Serial.println(couleurMoyenne());
 //   }
   // Ce switch va determiner ce que le robot doit faire dependemment de son etat actuel
-  while (true) {
-    Serial.println(IR_to_cm(IR_DROIT));
-  }
-
   switch (g_etat) {
     case DEPART: { depart(); break; }
     case SUIVRE_MUR_JUSQUA_POUTRE: { suivreMurDuree(8000); break; }
